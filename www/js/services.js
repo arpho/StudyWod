@@ -1,4 +1,4 @@
-angular.module('studywod.services', [])
+angular.module('Studywod.services', [])
 
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array

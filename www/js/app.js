@@ -20,7 +20,16 @@ var tab ={
           controller: 'ChatsCtrl'
         }
       }
-    }
+    },signin=  { name:'signin'
+            ,parent:'auth'
+            ,url: '/signin'
+            ,views: {
+                'auth-signin': {
+                    templateUrl: 'templates/auth-signin.html'
+                    ,controller: 'SignInCtrl'
+                }
+            }
+        }
     ,signup=  { name:'signup'
             ,parent:'auth'
             ,url: '/signup'
@@ -52,14 +61,15 @@ var tab ={
                   }
                 } 
             }
-// Ionic Starter App
+    
+   // Ionic Starter App
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('studywod', ['ionic', 'studywod.controllers', 'studywod.services'])
+angular.module('Studywod', ['ionic', 'Studywod.controllers', 'Studywod.services'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -87,6 +97,7 @@ angular.module('studywod', ['ionic', 'studywod.controllers', 'studywod.services'
     .state(tab)
     .state(auth)
     .state(signup)
+    .state(signin)
 
   // Each tab has its own nav history stack:
 

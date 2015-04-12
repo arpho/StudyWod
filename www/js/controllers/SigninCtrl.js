@@ -1,4 +1,4 @@
-angular.module('StudyWod.controllers', [])
+angular.module('StudyWod.controllers')
     .controller('SignInCtrl', [
         '$scope', '$rootScope', '$firebaseAuth', '$window',
         function($scope, $rootScope, $firebaseAuth, $window) {
