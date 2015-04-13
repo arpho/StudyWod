@@ -1,4 +1,4 @@
-angular.module('StudyWod',[])
+angular.module('StudyWod.controllers',[])
 .controller('SignUpCtrl', [
     '$scope', '$rootScope', '$firebaseAuth', '$window',
     function($scope, $rootScope, $firebaseAuth, $window) {
