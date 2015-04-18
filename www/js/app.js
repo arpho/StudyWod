@@ -26,7 +26,7 @@ var tab ={
             ,views: {
                 'auth-signin': {
                     templateUrl: 'templates/auth-signin.html'
-                    ,controller: 'SignInCtrl'
+                    ,controller: 'SignInController'
                 }
             }
         }
@@ -36,7 +36,7 @@ var tab ={
             ,views: {
                 'auth-signup': {
                     templateUrl: 'templates/auth-signup.html'
-                    ,controller: 'SignUpCtrl'
+                    ,controller: 'SignUpController'
                 }
             }
         }
@@ -70,7 +70,7 @@ var tab ={
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 
-angular.module('Studywod', ['ionic', 'Studywod.controllers', 'Studywod.services', 'firebase'])
+angular.module('StudyWod', ['ionic', 'StudyWod.controllers', 'StudyWod.services', 'firebase'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

@@ -1,10 +1,10 @@
 angular.module('StudyWod.controllers')
-    .controller('SignInCtrl', [
+    .controller('SignInController', [
         '$scope', '$rootScope', '$firebaseAuth', '$window',
         function($scope, $rootScope, $firebaseAuth, $window) {
             // check session
             alert('signin')
-            $rootScope.checkSession();
+           // $rootScope.checkSession();
             $scope.validateUser = function() {
                 $rootScope.show('Please wait.. Authenticating');
                 var email = this.user.email;

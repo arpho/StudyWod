@@ -1,8 +1,8 @@
-angular.module('StudyWod.controllers',[])
-.controller('SignUpCtrl', [
+angular.module('StudyWod.controllers')
+.controller('SignUpController', [
     '$scope', '$rootScope', '$firebaseAuth', '$window',
     function($scope, $rootScope, $firebaseAuth, $window) {
-
+alert ('signup2')
         $scope.user = {
             email: "",
             password: ""
