@@ -3,7 +3,6 @@ angular.module('StudyWod.controllers')
         '$scope', '$rootScope', '$firebaseAuth', '$window',
         function($scope, $rootScope, $firebaseAuth, $window) {
             // check session
-            alert('signin')
            // $rootScope.checkSession();
             $scope.validateUser = function() {
                 $rootScope.show('Please wait.. Authenticating');

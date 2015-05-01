@@ -1,4 +1,4 @@
-angular.module('StudyWod.services', []).factory('Utility',function($window, $ionicLoading){
+angular.module('StudyWod.services').factory('Utility',function($window, $ionicLoading){
 	var show = function(text) {
             var loading = $ionicLoading.show({
                 content: text ? text : 'Loading..',
@@ -20,7 +20,7 @@ angular.module('StudyWod.services', []).factory('Utility',function($window, $ion
         return {
                     'show':show
                     ,'hide':hide
-                    , 'notiofy':notify
+                    , 'notify':notify
                 };
 
 }
