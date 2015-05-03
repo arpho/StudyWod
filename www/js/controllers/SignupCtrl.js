@@ -11,9 +11,9 @@ angular.module('StudyWod.controllers')
             console.log('createUser');
             //alert(user.sayHello('popiu'));
             var password = this.user.password;
-            user.setUser(email,password);
+            user.createUser(email,password);
             //$user.setUser(this.user.email,this.user.password)
-            alert('signing '+user.user+' up  with '+user.password);
+            alert('signing '+user.email+' up  with '+user.password);
             //console.log(user.sayHello('hello'));
         }
     }
