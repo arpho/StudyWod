@@ -1,4 +1,4 @@
-angular.module('StudyWod.services').factory('Utility',function($window, $ionicLoading){
+angular.module('StudyWod.services').factory('Utility',['$firebaseAuth',function($firebaseAuth,$window, $ionicLoading){
 	var show = function(text) {
             var loading = $ionicLoading.show({
                 content: text ? text : 'Loading..',
@@ -16,13 +16,16 @@ angular.module('StudyWod.services').factory('Utility',function($window, $ionicLo
         hide();
       }, 1999);
     };
+        var  baseUrl = 'https://studywod.firebaseio.com//';
+                var auth = new Firebase(baseUrl);
 
         return {
                     'show':show
                     ,'hide':hide
                     , 'notify':notify
+                    ,'auth':auth
                 };
 
-}
+}]
 	
 	);

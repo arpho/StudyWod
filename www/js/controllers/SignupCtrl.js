@@ -8,13 +8,27 @@ angular.module('StudyWod.controllers')
         };
         $scope.createUser = function() {
             var email = this.user.email;
-            console.log('createUser');
-            //alert(user.sayHello('popiu'));
+
+            var cback = function(error, user) {
+                if (!error) {
+                    Utilities.hide();
+                    //$window.location.href = ('#/bucket/list');
+                } else {
+                    Utilities.hide();
+                    if (error.code == 'INVALID_EMAIL') {
+                        Utilities.notify('Invalid Email Address');
+                        console.log('Invalid Email Address')
+                    } else if (error.code == 'EMAIL_TAKEN') {
+                        Utilities.notify('Email Address already taken');
+                        console.log('Email Address already taken');
+                    } else {
+                        Utilities.notify('Oops something went wrong. Please try again later');
+                    }
+                }
+            }
             var password = this.user.password;
-            user.createUser(email,password);
-            //$user.setUser(this.user.email,this.user.password)
-            alert('signing '+user.email+' up  with '+user.password);
-            //console.log(user.sayHello('hello'));
+            user.createUser(email,password,cback);
+            alert('signing up '+user.getMail()+' up  with '+user.getPassword());
         }
     }
 ])

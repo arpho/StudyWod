@@ -1,4 +1,4 @@
-angular.module('StudyWod.services', []).factory('Utility',function($window, $ionicLoading){
+angular.module('StudyWod.services', []).factory('Utility',['$firebaseAuth',function($firebaseAuth,$window, $ionicLoading){
 	var show = function(text) {
             $rootScope.loading = $ionicLoading.show({
                 content: text ? text : 'Loading..',
@@ -10,8 +10,8 @@ angular.module('StudyWod.services', []).factory('Utility',function($window, $ion
             hide = function() {
             $ionicLoading.hide();
         };
-        return {'show':show,'hide':hide};
+        return {'show':show,'hide':hide,'auth':auth};
 
-        };
+        }];
 	
 	});
