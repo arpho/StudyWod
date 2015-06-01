@@ -1,8 +1,8 @@
 angular.module('StudyWod.services')
-.service('User',['$firebaseAuth','Utility', function($firebaseAuth,Utilities, $firebase){
+.service('User',['$firebaseAuth','Utility', function($firebaseAuth,Utilities){
 			
             	var  baseUrl = 'https://studywod.firebaseio.com//';
-	            var auth = Utilities.auth;
+	            var auth = Utilities.getAuth();
 	            this.user = {};
     			this.user.token ='';
 

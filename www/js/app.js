@@ -70,7 +70,7 @@ var tab ={
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 
-angular.module('StudyWod', ['ionic', 'StudyWod.controllers', 'StudyWod.services', 'firebase'])
+angular.module('StudyWod', ['ionic', 'StudyWod.controllers', 'StudyWod.services', 'firebase', "ngCordova"])
 
 .run(function($ionicPlatform, $firebaseAuth, $firebase) {
   $ionicPlatform.ready(function() {

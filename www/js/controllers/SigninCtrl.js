@@ -1,7 +1,7 @@
 angular.module('StudyWod.controllers')
     .controller('SignInController', [
-        '$scope', 'User', '$firebaseAuth', '$window',
-        function($scope, user,  $window) {
+        '$scope','Utility', 'User'
+        ,function($scope,Utilities, user) {
             // check session
            // $rootScope.checkSession();
             $scope.validateUser = function() {
