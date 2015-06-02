@@ -1,4 +1,4 @@
-angular.module('StudyWod.controllers', [])
+angular.module('StudyWod.controllers', ['StudyWod.services'])
 
 .controller('DashCtrl', function($scope) {
 })

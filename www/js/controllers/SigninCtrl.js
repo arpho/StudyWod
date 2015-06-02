@@ -4,6 +4,7 @@ angular.module('StudyWod.controllers')
         ,function($scope,Utilities, user) {
             // check session
            // $rootScope.checkSession();
+           console.log(Utilities);
             $scope.validateUser = function() {
 
                 var email = this.user.email;
@@ -34,6 +35,7 @@ angular.module('StudyWod.controllers')
                      user.setToken(authData.token);
                      user.setUser(email,password);
                      alert('signing '+user.getMail()+' up  with '+user.getPassword());
+                     Utilities.notify("tada!")
 
                 };
 
