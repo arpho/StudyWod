@@ -122,6 +122,14 @@ angular.module('StudyWod', ['ionic', 'StudyWod.controllers', 'StudyWod.services'
         controller: 'AccountCtrl'
       }
     }
+  }).state('tab.menu', {
+    url: '/menu',
+    views: {
+      'tab-menu': {
+        templateUrl: 'templates/tab-menu.html',
+        controller: 'AccountCtrl'
+      }
+    }
   });
 
   // if none of the above states are matched, use this as the fallback

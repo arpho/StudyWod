@@ -9,6 +9,9 @@ angular.module('StudyWod.controllers',[])
     var bucketListRef = new Firebase($rootScope.baseUrl + escapeEmailAddress($rootScope.userEmail));
     bucketListRef.on('value', function(snapshot) {
         var data = snapshot.val();
+        $scope.shouldLeftSideMenuBeEnabled = function(){
+            return true;
+        }
         $scope.list = [];
         for (var key in data) {
             if (data.hasOwnProperty(key)) {
@@ -137,7 +140,10 @@ angular.module('StudyWod.controllers',[])
             }
         });
     };
-});
+}).controller('ContentController',function($scope, $ionicSideMenuDelegate){
+$scope.toggleLeft = function() {
+    $ionicSideMenuDelegate.toggleLeft();
+  };});
 
 
 function escapeEmailAddress(email) {
