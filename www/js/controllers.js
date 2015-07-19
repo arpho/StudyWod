@@ -89,4 +89,10 @@ alert ('signup')
                 });
             }
         }
-    ]);
+    ])
+	.controller("ContentController",['$scope','$ionicSideMenuDelegate',function($scope,$ionicSideMenuDelegate){
+		$scope.toggleLeft = function(){
+			alert('menu')
+			$ionicSideMenuDelegate.toggleLeft();
+		}
+	}]);
