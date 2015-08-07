@@ -1,0 +1,18 @@
+<ion-view view-title={{titolo}}>
+  <ion-content>
+  <h3 align="center">{{subtitle}}</h3>
+  <button ng-click="pushDemoActivity()"> push demo task</button>
+  <button ng-click="getTasks()"> getTasks </button>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="task in activities" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">
+        <h2>task: {{task.activity}}</h2>
+        <p>eseguito il:{{task.lastTime}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+
+        <ion-option-button class="button-balanced" ng-click="remove(chat)">
+          Done
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
