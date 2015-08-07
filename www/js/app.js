@@ -10,6 +10,12 @@ var tab ={
     ,url:"/auth"
     ,templateUrl: "templates/auth.html"
   }
+  ,workout={
+    name: 'workout'
+    ,abstract:true
+    ,url:"/workout"
+    ,templateUrl: "templates/workout.html"
+  }
   ,chats={
     name :'chats',
     parent:'tab',
@@ -37,6 +43,26 @@ var tab ={
                 'auth-signup': {
                     templateUrl: 'templates/auth-signup.html'
                     ,controller: 'SignUpController'
+                }
+            }
+        }
+    ,wod=  { name:'wod'
+            ,parent:'workout'
+            ,url: '/wod'
+            ,views: {
+                'wod': {
+                    templateUrl: 'templates/wod.html'
+                    ,controller: 'WodController'
+                }
+            }
+        }
+    ,wot=  { name:'wot'
+            ,parent:'workout'
+            ,url: '/wot'
+            ,views: {
+                'wot': {
+                    templateUrl: 'templates/wod.html'
+                    ,controller: 'WotController'
                 }
             }
         }
@@ -99,6 +125,9 @@ angular.module('StudyWod', ['ionic', 'StudyWod.controllers', 'StudyWod.services'
     .state(auth)
     .state(signup)
     .state(signin)
+	.state(workout)
+	.state(wod)
+	.state(wot)
 
   // Each tab has its own nav history stack:
 
