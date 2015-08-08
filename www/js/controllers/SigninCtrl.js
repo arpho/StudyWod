@@ -13,7 +13,7 @@ angular.module('StudyWod.controllers')
                 var email = this.user.email;
                 var password = this.user.password;
                 if (!email || !password) {
-                    $rootScope.notify("Please enter valid credentials");
+                    //$rootScope.notify("Please enter valid credentials");
                     return false;
                 }
 
