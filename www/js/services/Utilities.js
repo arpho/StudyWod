@@ -1,4 +1,11 @@
-angular.module('StudyWod.services').factory('Utility',['$firebaseAuth','$ionicPopup',function($firebaseAuth,popup,$window, $ionicLoading,$ionicPopup, $cordovaLocalNotification){
+angular.module('StudyWod.services').factory('Utility',['$firebaseAuth'
+,'$ionicPopup'
+,'$window'
+,'$ionicLoading'
+,'$timeout'
+,function($firebaseAuth,popup,$window, $ionicLoading, $timeout){
+    console.log('popup')
+    console.log($timeout)
 	var show = function(text) {
             var loading = $ionicLoading.show({
                 content: text ? text : 'Loading..',
@@ -60,7 +67,13 @@ angular.module('StudyWod.services').factory('Utility',['$firebaseAuth','$ionicPo
         //show(text);
    /*     var alarmTime = new Date();
         alarmTime.setMinutes(alarmTime.getMinutes() + 1);*/
-        popup.alert({title:text,okText:'Ok'})
+        var myPopup = popup.alert({title:text,okText:'Ok'})
+		myPopup.then(function(res) {
+    console.log('Tapped!', res);
+  });
+  $timeout(function(){
+            myPopup.close()
+	  },1500)
        /* $cordovaLocalNotification.add({
             id: "1234",
             date: alarmTime,

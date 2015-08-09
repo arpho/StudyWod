@@ -1,5 +1,7 @@
 angular.module('StudyWod.services')
-.factory('Activities',['Utility','User',function(Utilities,User){
+.factory('Activities',['Utility'
+,'User'
+,function(Utilities,User){
 	var ref = Utilities.getAuth();
 	var activities = {};
 	
@@ -47,6 +49,13 @@ angular.module('StudyWod.services')
 		return out
 		
 	}
+    activities.createTask = function(task,cback){
+		ref.child("tasks").child(User.getUid()).push(task,cback);
+    }
+    
+    activities.updateTask = function(tid,task,cback){
+        ref.child("taks").child(User.getUid()).child(tid).update(task,cback)
+    }
 	activities.pushDemoActivity = function(){
 		console.log("pushing new demo task")
 		var activity = {

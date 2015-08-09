@@ -7,7 +7,6 @@ angular.module('StudyWod.controllers')
         ,function($scope,$ionicLoading,Utilities, user,$rootScope) {
             // check session
            // $rootScope.checkSession();
-		   console.log($ionicLoading)
             $scope.validateUser = function() {
 				$ionicLoading.show({template:'Loging in...'})
                 var email = this.user.email;
