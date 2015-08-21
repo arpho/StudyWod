@@ -25,40 +25,18 @@ angular.module('StudyWod.services').factory('Utility',['$firebaseAuth'
 				result.setDate(result.getDate() + days);
 				return result;
 			}
-			,/*ritorna il giorno della settimana
-			@param oggetto Date:: Date
-			@return il giorno della settimana :: string
-			@todo implementare internazionalizzazione*/
-			getDay = function(d){
-				switch(d.getDay()){
-					case 0:
-						return "domenica";
-					case 1:
-						return "lunedì";
-					case 2:
-						return "martedì"
-					case 3:
-						return "mercoledì";
-					case 4:
-						return "giovedì"
-					case 5:
-						return "venerdì"
-					case 6:
-						return "sabato"
-				}
-			}
 			/*
 			 formatta la data  nel formato locale
 			 @param  oggetto Date:: Date
 			 @param visualizzare giorno della settimana:: boolean default false
 			 @return formatta la data secondo il formato locale:: String
 			*/
-			,formatDate  = function(d,withDay){
-				var giorno = "";
+			,formatDate  = function(d){
+				/*var giorno = "";
 				if (withDay){
 					giorno = getDay(d) +" "
-				}
-				return  giorno + d.toLocaleDateString()
+				}*/
+				return   d.toLocaleDateString()
 			}
             ,hide = function() {
                 $ionicLoading.hide();

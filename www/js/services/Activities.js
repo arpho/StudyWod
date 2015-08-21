@@ -54,7 +54,7 @@ angular.module('StudyWod.services')
     }
     
     activities.updateTask = function(tid,task,cback){
-        ref.child("taks").child(User.getUid()).child(tid).update(task,cback)
+        ref.child("tasks").child(User.getUid()).child(tid).update(task,cback)
     }
 	activities.pushDemoActivity = function(){
 		console.log("pushing new demo task")

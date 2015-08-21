@@ -4,7 +4,7 @@
   <button ng-click="pushDemoActivity()"> push demo task</button>
   <button ng-click="openModal()"> open modal</button>
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="(key,task) in activities" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="(key,task) in activities" type="item-text-wrap" href="#/tab/chats/{{chat.id}}" can-swipe="true">
         <h2>task: {{task.activity}}</h2>
         <p>eseguito il:{{task.lastTime}}</p>
         <p> ripetuto  {{task.rep}} volte</p>
@@ -12,7 +12,7 @@
         <i class="icon ion-chevron-right icon-accessory"></i>
            <ion-option-button class="button-energized" ng-click = updateTask(key)>
            Modifica
-           <ion-option-button>
+           </ion-option-button>
         <ion-option-button class="button-balanced" ng-click=taskDone(key)>
           Completato
         </ion-option-button>

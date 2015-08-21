@@ -5,7 +5,9 @@ angular.module('StudyWod.controllers')
                                                 ,'Activities'
                                                 ,'$ionicLoading'
                                                 ,'$ionicModal'
-                                                ,function($scope,Utilities,Activities,$ionicLoading,$ionicModal){
+                                                ,'User'
+                                                , '$log'
+                                                ,function($scope,Utilities,Activities,$ionicLoading,$ionicModal,User,log){
                                                     $ionicModal.fromTemplateUrl('templates/task.html', {
     scope: $scope,
     animation: 'slide-in-up'
@@ -58,6 +60,7 @@ angular.module('StudyWod.controllers')
   }
   $scope.updateTask = function(tid){
      $scope.task = $scope.activities[tid]
+     console.log("updating task")
      $scope.action = "Modifica" // imposto il testo del pulsante nella finestra modale
      $scope.doAction = function(){
          $scope.doUpdateTask(tid,$scope.task)
@@ -66,8 +69,9 @@ angular.module('StudyWod.controllers')
      $scope.openModal();
   }
                                                     $scope.titolo= "Wod";
+                                                    $scope.action = "test click"
                                                     var d = new Date()
-                                                    $scope.subtitle = "Programma di  " + Utilities.formatDate(d,true)
+                                                    $scope.subtitle = "Work of the day  " + Utilities.formatDate(d,true)
                                                     var cback = function(data){
                                                         console.log(data)
                                                         console.log("cback gettasts")
@@ -89,7 +93,6 @@ angular.module('StudyWod.controllers')
                                                     }
                                                     $scope.taskDone = function (id){
                                                         $ionicLoading.show({template:'Updating Task'})
-                                                        console.log('task dione '+ id)
                                                         var task = $scope.activities[id];
                                                         task.nextTime =  Utilities.formatDate(Utilities.addDays(new Date(),Activities.getDays(task.rep)))
                                                         task.rep += 1
@@ -99,7 +102,7 @@ angular.module('StudyWod.controllers')
                                                                     }
                                                         Activities.updateTask(id,task,callback)
                                                     }
-                                                    $scope.getTasks = function(){
+                                                    var getTasks = function(){
                                                         $ionicLoading.show({template:'Loading Wod...'})
                                                         console.log('retrieving  tasks')
                                                         var cback = function(data){
@@ -114,5 +117,10 @@ angular.module('StudyWod.controllers')
                                                         Activities.getTasks(Utilities.formatDate(today),cback)
                                                     }
                                                     $scope.pushDemoActivity = Activities.pushDemoActivity
-                                                    $scope.getTasks(Utilities.formatDate(new Date()));
+
+  if (User.isLogged())
+     getTasks()
+  else
+     Utilities.notify('You are not logged in!!')
+                                                    
 }])

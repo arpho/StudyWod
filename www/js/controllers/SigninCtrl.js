@@ -4,7 +4,9 @@ angular.module('StudyWod.controllers')
 		,'Utility'
 		, 'User'
 		,'$rootScope'
-        ,function($scope,$ionicLoading,Utilities, user,$rootScope) {
+        , '$location'
+        ,function($scope,$ionicLoading,Utilities, user,$rootScope,$location) {
+            //location.html5Mode(true)
             // check session
            // $rootScope.checkSession();
             $scope.validateUser = function() {
@@ -47,6 +49,9 @@ angular.module('StudyWod.controllers')
 					 user.setUserName(user.getName(authData));
                      // alert('signing '+user.getMail()+' up  with '+user.getPassword());
 						Utilities.notify("benvenuto  "+user.getUserName())
+                        //location.$$path('/workout/wod')
+                       // window.location.href = '/workout/wod'
+                       $location.path ("/workout/wod")
 
                 };
 

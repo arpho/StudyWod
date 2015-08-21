@@ -162,6 +162,7 @@ angular.module('StudyWod', ['ionic', 'StudyWod.controllers', 'StudyWod.services'
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/chats');
+  $urlRouterProvider.otherwise('/auth/signin');
+//  $urlRouterProvider.otherwise('/tab/chats');
 
 });
