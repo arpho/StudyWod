@@ -4,7 +4,8 @@ angular.module('StudyWod.controllers')
 ,'$ionicLoading'
 ,'Activities'
 ,'User'
-,function($scope,Utilities,$ionicLoading,Activities,User){
+,'$state'
+,function($scope,Utilities,$ionicLoading,Activities,User,$state){
 	$scope.titolo = "Wot";
 	var today = new Date()
 	var tomorrow = Utilities.addDays(today,1)
@@ -53,6 +54,9 @@ $scope.taskDone = function (id){
 
 	if (User.isLogged())
 		 getTasks()
-	else
+	else{
      Utilities.notify('You are not logged in!!')
+	 Utilities.setPreviousState('wot')
+	 $state.go('signin')
+	}
 }])

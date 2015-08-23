@@ -36,7 +36,15 @@ angular.module('StudyWod.services').factory('Utility',['$firebaseAuth'
 				if (withDay){
 					giorno = getDay(d) +" "
 				}*/
-				return   d.toLocaleDateString()
+				return   [d.getDate(), d.getMonth()+1, d.getFullYear()].join('/')
+			}
+			
+			,previousState,
+			setPreviousState = function(state){
+				previousState = state
+			}
+			,getPreviousState = function(){
+				return previousState
 			}
             ,hide = function() {
                 $ionicLoading.hide();
@@ -81,11 +89,13 @@ angular.module('StudyWod.services').factory('Utility',['$firebaseAuth'
         return {
                     'show':show
                     ,'hide':hide
-                    , 'notify':notify
+                    ,'notify':notify
                     ,'getAuth':getAuth
 					,'formatDate': formatDate
 					,'addDays': addDays
 					,'getActivitiesRef':getActivitiesRef
+					,'getPreviousState':getPreviousState
+					,'setPreviousState':setPreviousState
                 };
 
 }]

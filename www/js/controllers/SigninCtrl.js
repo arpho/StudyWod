@@ -4,8 +4,8 @@ angular.module('StudyWod.controllers')
 		,'Utility'
 		, 'User'
 		,'$rootScope'
-        , '$location'
-        ,function($scope,$ionicLoading,Utilities, user,$rootScope,$location) {
+        , '$state'
+        ,function($scope,$ionicLoading,Utilities, user,$rootScope,$state) {
             //location.html5Mode(true)
             // check session
            // $rootScope.checkSession();
@@ -51,7 +51,9 @@ angular.module('StudyWod.controllers')
 						Utilities.notify("benvenuto  "+user.getUserName())
                         //location.$$path('/workout/wod')
                        // window.location.href = '/workout/wod'
-                       $location.path ("/workout/wod")
+                      // $location.path ("/workout/wod")
+					  var nextState = Utilities.getPreviousState()||'wod'
+					  $state.go(nextState);
 
                 };
 

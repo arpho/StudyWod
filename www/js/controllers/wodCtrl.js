@@ -7,16 +7,26 @@ angular.module('StudyWod.controllers')
                                                 ,'$ionicModal'
                                                 ,'User'
                                                 , '$log'
-                                                ,function($scope,Utilities,Activities,$ionicLoading,$ionicModal,User,log){
+												,'$state'
+												,'$ionicSideMenuDelegate'
+                                                ,function($scope,Utilities,Activities,$ionicLoading,$ionicModal,User,log,$state,$menuDelegate){
                                                     $ionicModal.fromTemplateUrl('templates/task.html', {
     scope: $scope,
     animation: 'slide-in-up'
   }).then(function(modal) {
     $scope.modal = modal;
   });
+  
+  
   $scope.openModal = function() {
     $scope.modal.show();
   };
+  
+  $scope.showMenu = function() {
+	  console.log('menu')
+    $menuDelegate.toggleLeft();
+  };
+  
   $scope.closeModal = function() {
     $scope.modal.hide();
   };
@@ -107,6 +117,7 @@ angular.module('StudyWod.controllers')
                                                         console.log('retrieving  tasks')
                                                         var cback = function(data){
                                                             console.log("cback gettasts")
+															console.log (data);
                                                             //instanzio la lista delle attivita
                                                             $scope.activities = data.val()
                                                             
@@ -120,7 +131,9 @@ angular.module('StudyWod.controllers')
 
   if (User.isLogged())
      getTasks()
-  else
+  else {
      Utilities.notify('You are not logged in!!')
-                                                    
+	 Utilities.setPreviousState('wod')
+	 $state.go('signin')
+  }                                            
 }])
