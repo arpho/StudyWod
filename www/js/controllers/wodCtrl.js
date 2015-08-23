@@ -17,7 +17,6 @@ angular.module('StudyWod.controllers')
     $scope.modal = modal;
   });
   
-  
   $scope.openModal = function() {
     $scope.modal.show();
   };
@@ -38,7 +37,7 @@ angular.module('StudyWod.controllers')
   $scope.doUpdateTask = function(tid,task){
       console.log('doUpdateTask '+tid)
       console.log(task)
-     $ionicLoading.show({template:"Modifica dell'attività in corso..."})
+     $ionicLoading.show({template:"Updating Task..."})
       var cback = function(error){
           console.log('update error')
           console.log(error)
@@ -49,9 +48,10 @@ angular.module('StudyWod.controllers')
   }
   
   $scope.doCreateTask = function(task){
-      $ionicLoading.show({template:'Sto inserendo la nuova attività...'})
+      $ionicLoading.show({template:'Creating new task...'})
       var cback = function(){
           $ionicLoading.hide()
+		  $scope.closeModal()
       }
       
       Activities.createTask(task,cback)
@@ -64,14 +64,16 @@ angular.module('StudyWod.controllers')
       $scope.task.nextTime = Utilities.formatDate(Utilities.addDays(new Date(),1))
       $scope.task.rep =0;
       $scope.action ='Crea'
+	  
       $scope.doAction = function(){
           $scope.doCreateTask($scope.task)
       }
+     $scope.openModal();
   }
   $scope.updateTask = function(tid){
      $scope.task = $scope.activities[tid]
      console.log("updating task")
-     $scope.action = "Modifica" // imposto il testo del pulsante nella finestra modale
+     $scope.action = "Update" // imposto il testo del pulsante nella finestra modale
      $scope.doAction = function(){
          $scope.doUpdateTask(tid,$scope.task)
          console.log('nota '+$scope.task.nota)
@@ -109,6 +111,7 @@ angular.module('StudyWod.controllers')
                                                         task.history.push(Utilities.formatDate(new Date()))
                                                                     var callback = function(){
                                                                         $ionicLoading.hide()
+																		Utilities.notify("next time on "+ task.nextTime)
                                                                     }
                                                         Activities.updateTask(id,task,callback)
                                                     }

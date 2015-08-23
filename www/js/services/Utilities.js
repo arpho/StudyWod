@@ -6,7 +6,23 @@ angular.module('StudyWod.services').factory('Utility',['$firebaseAuth'
 ,function($firebaseAuth,popup,$window, $ionicLoading, $timeout){
     console.log('popup')
     console.log($timeout)
-	var show = function(text) {
+	/* memorizza un valore in locale
+	@param String chiave
+	@param String valore
+	*/
+	var setValue = function(key,value){
+		$window.localStorage[key] = value
+	}
+	/*
+	recupera un valore salvato in locale
+	@param String chiave delvalore
+	@param String valore di default
+	@return String il valore memorizzato
+	*/
+	, getValue = function(key,defaultValue){
+		return $window.localStorage[key] ||defaultValue
+	}
+	,show = function(text) {
             var loading = $ionicLoading.show({
                 content: text ? text : 'Loading..',
                 animation: 'fade-in',
@@ -96,6 +112,8 @@ angular.module('StudyWod.services').factory('Utility',['$firebaseAuth'
 					,'getActivitiesRef':getActivitiesRef
 					,'getPreviousState':getPreviousState
 					,'setPreviousState':setPreviousState
+					,'setValue':setValue
+					,'getValue':getValue
                 };
 
 }]

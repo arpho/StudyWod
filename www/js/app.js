@@ -2,7 +2,7 @@ var tab ={
   name:'tab',
     url: "/tab",
     abstract: true,
-    templateUrl: "templates/tabs.html"
+    templateUrl : "templates/tabs.html"
   }
   ,auth={
     name: 'auth'

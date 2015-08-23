@@ -2,16 +2,32 @@
 <ion-view view-title="SignIn">
 <ion-content class="has-header padding">
    <div class="list">
+	  <form name='login'>
       <label class="item item-input">
       <span class="input-label">Email</span>
-      <input type="text" ng-model="user.email">
+      <input type="text" name ='email' ng-model="user.email" required>
       </label>
+	  <div role="alert">
+	  <div role="alert">
+      <span class="error" ng-show="login.email.$error.required">
+       Required!</span>
+      <span class="error" ng-show="login.email.$error.email">
+        Not valid email!</span>
+		</div>
+		<ion-checkbox ng-model="user.rememberCredentials">Remenber Credentials</ion-checkbox>
+    </div>
       <label class="item item-input">
       <span class="input-label">Password</span>
-      <input type="password" ng-model="user.password">
+      <input type="password" name='password' ng-model="user.password" required>
       </label>
+	  <div role="alert">
+	  <div role="alert">
+      <span class="error" ng-show="login.password.$error.required">
+       Required!</span>
+	   </div>
       <label class="item item-input">
-      <button class="button button-block button-positive" ng-click="validateUser()">
+      <button class="button button-block button-positive" ng-click="validateUser()" >
+	  </form>
       Sign In
       </button>
       </label>

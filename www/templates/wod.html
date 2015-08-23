@@ -1,21 +1,22 @@
 <ion-view view-title={{titolo}}>
   <ion-content>
   <h3 align="center">{{subtitle}}</h3>
-  <button ng-click="pushDemoActivity()"> push demo task</button>
-  <button ng-click="openModal()"> open modal</button>
+	<button class="button ion-chevron-right ion-plus-round" ng-click="newTask()"></button>
     <ion-list>
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="(key,task) in activities" type="item-text-wrap" ng-click="updateTask(key)" can-swipe="true">
         <h2>task: {{task.activity}}</h2>
         <p>eseguito il:{{task.lastTime}}</p>
         <p> ripetuto  {{task.rep}} volte</p>
         <p> nota {{task.nota}} <p>
-        <i class="icon ion-chevron-right ion-ios-arrow-back"></i>
-           <ion-option-button class="button-energized" ng-click = updateTask(key)>
+        <button class="button  ion-edit" ng-click="updateTask(key)" ></button>
+		<button class="button  ion-checkmark" ng-click="taskDone(key)"></button>
+		<button class="button  ion-trash-b" ng-click="deleteTask(key)"></button>
+          <!--  <ion-option-button class="button-energized" ng-click = updateTask(key)>
            Modifica
            </ion-option-button>
-        <ion-option-button class="button-balanced" ng-click=taskDone(key)>
+        <ion-option-button class="button-balanced" >
           Completato
-        </ion-option-button>
+        </ion-option-button> -->
       </ion-item>
     </ion-list>
   </ion-content>
