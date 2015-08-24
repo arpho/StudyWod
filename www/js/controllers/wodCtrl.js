@@ -9,7 +9,8 @@ angular.module('StudyWod.controllers')
                                                 , '$log'
 												,'$state'
 												,'$ionicSideMenuDelegate'
-                                                ,function($scope,Utilities,Activities,$ionicLoading,$ionicModal,User,log,$state,$menuDelegate){
+												,'$rootScope'
+                                                ,function($scope,Utilities,Activities,$ionicLoading,$ionicModal,User,log,$state,$menuDelegate,$rootScope){
                                                     $ionicModal.fromTemplateUrl('templates/task.html', {
     scope: $scope,
     animation: 'slide-in-up'
@@ -20,6 +21,8 @@ angular.module('StudyWod.controllers')
   $scope.openModal = function() {
     $scope.modal.show();
   };
+  
+  $rootScope.showPlus = true;
   
   $scope.showMenu = function() {
 	  console.log('menu')

@@ -55,8 +55,11 @@ alert ('signup')
         }
     }
 ]).controller('SignInCtrl', [
-        '$scope', '$rootScope', '$firebaseAuth', '$window',
-        function($scope, $rootScope, $firebaseAuth, $window) {
+        '$scope'
+		, '$rootScope'
+		, '$firebaseAuth'
+		, '$window'
+		,function($scope, $rootScope, $firebaseAuth, $window) {
             // check session
            // $rootScope.checkSession();
             $scope.validateUser = function() {
@@ -100,6 +103,10 @@ alert ('signup')
 	  $scope.showMenu = function () {
 		$ionicSideMenuDelegate.toggleLeft();
 	  };
+	  $scope.newTask = function(){
+		  alert('voilà')
+	  $rootScope.showPlus = false;
+	  }
 	  $scope.showRightMenu = function () {
 		$ionicSideMenuDelegate.toggleRight();
 	  }

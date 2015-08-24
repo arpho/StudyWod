@@ -48,11 +48,16 @@
             
 
             <ion-nav-buttons side="right">
-			<div ngshow="showPlus()">
-              <button class="button button-icon button-clear ion-grid" ng-click="showRightMenu()">
+			<div ng-show="showPlus">
+				<button class="button button-icon button-clear ion-plus-round" ng-click="newTask()"></button>
+			
+			</div>
+			
+              <button class="button button-icon button-clear ion-navicon" ng-click="showRightMenu()">
               </button>
-			  </div>
             </ion-nav-buttons>
+			
+      </div>
 			
 			<ion-nav-buttons side="left">
               <button menu-toggle="left" class="button button-icon icon ion-navicon" ng-click="showMenu()">
@@ -98,10 +103,10 @@
           <ion-content>
             <ul class="list">
               <li>
-                <a class="item" menu-close nav-clear href="#/workout/wod">WOD</a>
+                <a class="item" menu-close nav-clear href="#/workout/wod">coming soon</a>
               </li>
               <li>
-                <a class="item" menu-close nav-clear href="#/workout/wot">WOT</a>
+                <a class="item" menu-close nav-clear href="#/workout/wot">coming soon</a>
               </li>
             </ul>
           </ion-content>

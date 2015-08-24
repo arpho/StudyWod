@@ -15,6 +15,7 @@ var tab ={
     ,abstract:true
     ,url:"/workout"
     ,templateUrl: "templates/workout.html"
+	, controller: "WodController"
   }
   ,chats={
     name :'chats',

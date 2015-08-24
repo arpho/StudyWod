@@ -6,6 +6,7 @@ angular.module('StudyWod.controllers')
             email: "",
             password: ""
         };
+		$scope.goCats = false
         $scope.createUser = function() {
             var email = this.user.email;
 
