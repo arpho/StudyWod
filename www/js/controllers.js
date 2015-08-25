@@ -22,7 +22,6 @@ angular.module('StudyWod.controllers', ['StudyWod.services'])
 .controller('SignUpCtrl', [
     '$scope', '$rootScope', '$firebaseAuth', '$window',
     function($scope, $rootScope, $firebaseAuth, $window) {
-alert ('signup')
         $scope.user = {
             email: "",
             password: ""
@@ -95,19 +94,68 @@ alert ('signup')
     ])
 	.controller("ContentController",['$scope','$ionicSideMenuDelegate',function($scope,$ionicSideMenuDelegate){
 		$scope.toggleLeft = function(){
-			alert('menu')
 			$ionicSideMenuDelegate.toggleLeft();
 		}
 	}])
-	.controller('NavCtrl', function($scope, $ionicSideMenuDelegate) {
+	.controller('NavCtrl',[
+							'$scope'
+							,'$ionicSideMenuDelegate'
+							,'$ionicModal'
+							,'Activities'
+							,'Utility'
+							,'$ionicLoading'
+							, '$state'
+							,'StateMonitor'
+							, function($scope, $ionicSideMenuDelegate,$ionicModal,Activities,Utilities,$ionicLoading,$state,stateMonitor) {
+		$ionicModal.fromTemplateUrl('templates/task.html', {
+			scope: $scope,
+			animation: 'slide-in-up'
+		}).then(function(modal) {
+			$scope.modal = modal;
+			});
+			
+		$scope.openModal = function() {
+		$scope.modal.show();
+  };
+  
+  $scope.closeModal = function() {
+    $scope.modal.hide();
+  };
+		$scope.doCreateTask = function(task){
+      $ionicLoading.show({template:'Creating new task...'})
+      var cback = function(){
+          $ionicLoading.hide()
+		  $scope.closeModal()
+      }
+      
+      Activities.createTask(task,cback)
+  }	
+	  $scope.$on('$stateChangeStart',function(){
+		  stateMonitor.setPreviousState($state.current.name)
+	  })
+	  $scope.$on('$stateChangeSuccess',function(){
+		  if ($state.current.parent =='workout') $scope.showPlus= true 
+		  else $scope.showPlus = false
+	  })
+	  $scope.newTask = function(){
+      $scope.task = {}
+      $scope.task.history = [Utilities.formatDate(new Date())]
+      $scope.task.lastTime = Utilities.formatDate(new Date())
+      $scope.task.nextTime = Utilities.formatDate(Utilities.addDays(new Date(),1))
+      $scope.task.rep =0;
+      $scope.action ='Crea'
+	  
+      $scope.doAction = function(){
+          $scope.doCreateTask($scope.task)
+      }
+     $scope.openModal();
+	 
+  }
+			
 	  $scope.showMenu = function () {
 		$ionicSideMenuDelegate.toggleLeft();
 	  };
-	  $scope.newTask = function(){
-		  alert('voilà')
-	  $rootScope.showPlus = false;
-	  }
 	  $scope.showRightMenu = function () {
 		$ionicSideMenuDelegate.toggleRight();
 	  }
-	})
+	}])

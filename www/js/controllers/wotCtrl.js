@@ -104,7 +104,6 @@ $scope.taskDone = function (id){
 	if (User.isLogged())
 		 getTasks()
 	else{
-     Utilities.notify('You are not logged in!!')
 	 Utilities.setPreviousState('wot')
 	 $state.go('signin')
 	}

@@ -140,9 +140,10 @@ angular.module('StudyWod.controllers',[])
             }
         });
     };
-}).controller('ContentController',function($scope, $ionicSideMenuDelegate){
+}).controller('ContentController',function($scope, $ionicSideMenuDelegate,$ionicModal){
 $scope.toggleLeft = function() {
     $ionicSideMenuDelegate.toggleLeft();
+	
   };});
 
 

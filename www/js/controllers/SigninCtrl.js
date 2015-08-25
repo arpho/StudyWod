@@ -1,6 +1,6 @@
 angular.module('StudyWod.controllers')
 .controller('SignInController', [
-		'$scope', '$ionicLoading', 'Utility', 'User', '$rootScope', '$state', function ($scope, $ionicLoading, Utilities, user, $rootScope, $state) {
+		'$scope', '$ionicLoading', 'Utility', 'User', '$rootScope', '$state', function ($scope, $ionicLoading, Utilities, user, $rootScope, $state,stateMonitor) {
 			//location.html5Mode(true)
 			// check session
 			// $rootScope.checkSession();

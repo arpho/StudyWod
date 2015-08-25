@@ -20,14 +20,7 @@ angular.module('StudyWod.controllers')
   
   $scope.openModal = function() {
     $scope.modal.show();
-  };
-  
-  $rootScope.showPlus = true;
-  
-  $scope.showMenu = function() {
-	  console.log('menu')
-    $menuDelegate.toggleLeft();
-  };
+  }; 
   
   $scope.closeModal = function() {
     $scope.modal.hide();
@@ -138,7 +131,6 @@ angular.module('StudyWod.controllers')
   if (User.isLogged())
      getTasks()
   else {
-     Utilities.notify('You are not logged in!!')
 	 Utilities.setPreviousState('wod')
 	 $state.go('signin')
   }                                            
