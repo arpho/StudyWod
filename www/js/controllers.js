@@ -105,8 +105,7 @@ angular.module('StudyWod.controllers', ['StudyWod.services'])
 							,'Utility'
 							,'$ionicLoading'
 							, '$state'
-							,'StateMonitor'
-							, function($scope, $ionicSideMenuDelegate,$ionicModal,Activities,Utilities,$ionicLoading,$state,stateMonitor) {
+							, function($scope, $ionicSideMenuDelegate,$ionicModal,Activities,Utilities,$ionicLoading,$state) {
 		$ionicModal.fromTemplateUrl('templates/task.html', {
 			scope: $scope,
 			animation: 'slide-in-up'
@@ -131,8 +130,9 @@ angular.module('StudyWod.controllers', ['StudyWod.services'])
       Activities.createTask(task,cback)
   }	
 	  $scope.$on('$stateChangeStart',function(){
-		  stateMonitor.setPreviousState($state.current.name)
+		  Utilities.setPreviousState($state.current.name)
 	  })
+	  //$scope.myAvatar = User.getGravatar()
 	  $scope.$on('$stateChangeSuccess',function(){
 		  if ($state.current.parent =='workout') $scope.showPlus= true 
 		  else $scope.showPlus = false

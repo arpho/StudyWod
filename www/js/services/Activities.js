@@ -1,6 +1,6 @@
 angular.module('StudyWod.services')
 .factory('Activities', [
-		'Utility', 'User',function (Utilities, User) {
+		'Utility', 'User', function (Utilities, User) {
 			var ref = Utilities.getAuth();
 			var activities = {};
 
@@ -18,12 +18,29 @@ angular.module('StudyWod.services')
 			/*
 			interroga il server di firebase
 			@param string  data d'interesse nel formato  "3/8/2015"
+			@param String campo su cui firebase filtrerà, default nextTime
 			@param  funzione di callback, per gestire la risposta del server
 			 */
-			activities.getTasks = function (day, cback) {
-				console.log('gettasks')
+			activities.getTasks = function (day, cback,field) {
+				queryField = field ||'nextTime'
 				if (User.getUid()) {
-					ref.child('tasks').child(User.getUid()).orderByChild('nextTime').equalTo(day).on("value", cback, function (errorObject) {
+					ref.child('tasks').child(User.getUid()).orderByChild(queryField).equalTo(day).on("value", cback, function (errorObject) {
+						console.log("The read failed: " + errorObject.code);
+					})
+
+				} else
+					console.log('utente non loggato')
+
+			}
+
+			/*
+			interroga il server di firebase
+			@param string  data d'interesse nel formato  "3/8/2015"
+			@param  funzione di callback, per gestire la risposta del server
+			 */
+			activities.getAllTasks = function (cback) {
+				if (User.getUid()) {
+					ref.child('tasks').child(User.getUid()).orderByChild('lastTime').on("value", cback, function (errorObject) {
 						console.log("The read failed: " + errorObject.code);
 					})
 
@@ -47,8 +64,7 @@ angular.module('StudyWod.services')
 					return out
 
 			}
-			
-			
+
 			activities.createTask = function (task, cback) {
 				ref.child("tasks").child(User.getUid()).push(task, cback);
 			}

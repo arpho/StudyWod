@@ -113,25 +113,35 @@ angular.module('StudyWod.controllers')
                                                     }
                                                     var getTasks = function(){
                                                         $ionicLoading.show({template:'Loading Wod...'})
-                                                        console.log('retrieving  tasks')
+                                                        var today = new Date()
                                                         var cback = function(data){
-                                                            console.log("cback gettasts")
-															console.log (data);
                                                             //instanzio la lista delle attivita
                                                             $scope.activities = data.val()
-                                                            
-                                                            console.log(data)
-                                                            $ionicLoading.hide()
+															//funzione di callback della seconda chiamata a firebase
+															var cback2 = function(data2){
+															//$scope.activities.concat(data2.val())
+															console.log('concatno i due dataset')
+															angular.extend(data2.val(),$scope.activities)
+															console.log('ecco')
+															console.log($scope.activities)
+                                                            $ionicLoading.hide()	
+															}
+															// seconda chiamata a firebase
+															Activities.getTasks(Utilities.formatDate(today),cback2,'lastTime')
                                                         }
-                                                        var today = new Date()
                                                         Activities.getTasks(Utilities.formatDate(today),cback)
+													   //Activities.getAllTasks(cback)
                                                     }
+													// $scope.myComparator = function(obj){
+														// if (obj.lastTime == Utilities.formatDate(today) ||obj.nextTime == Utilities.formatDate(today)) return true
+													// } //imposto il criterio del filtro per visualizzare i task che hanno nextTime  o lastTime oggi 
+													
                                                     $scope.pushDemoActivity = Activities.pushDemoActivity
 
   if (User.isLogged())
      getTasks()
   else {
-	 Utilities.setPreviousState('wod')
+	 //Utilities.setPreviousState('wod')
 	 $state.go('signin')
   }                                            
 }])

@@ -104,7 +104,7 @@ $scope.taskDone = function (id){
 	if (User.isLogged())
 		 getTasks()
 	else{
-	 Utilities.setPreviousState('wot')
+	 //Utilities.setPreviousState('wot')
 	 $state.go('signin')
 	}
 }])

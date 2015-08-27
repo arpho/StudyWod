@@ -55,6 +55,7 @@ angular.module('StudyWod.controllers')
 						user.setUid(authData.uid);
 						user.setProvider(authData.provider);
 						user.setGravatar(authData.password.profileImageURL);
+						$rootScope.effige = authData.password.profileImageURL
 						user.setUserName(user.getName(authData));
 						// alert('signing '+user.getMail()+' up  with '+user.getPassword());
 						Utilities.notify("benvenuto  " + user.getUserName())
