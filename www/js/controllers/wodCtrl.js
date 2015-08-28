@@ -10,7 +10,8 @@ angular.module('StudyWod.controllers')
 												,'$state'
 												,'$ionicSideMenuDelegate'
 												,'$rootScope'
-                                                ,function($scope,Utilities,Activities,$ionicLoading,$ionicModal,User,log,$state,$menuDelegate,$rootScope){
+												,'$ionicActionSheet'
+                                                ,function($scope,Utilities,Activities,$ionicLoading,$ionicModal,User,log,$state,$menuDelegate,$rootScope,$ionicActionSheet){
                                                     $ionicModal.fromTemplateUrl('templates/task.html', {
     scope: $scope,
     animation: 'slide-in-up'
@@ -117,26 +118,55 @@ angular.module('StudyWod.controllers')
                                                         var cback = function(data){
                                                             //instanzio la lista delle attivita
                                                             $scope.activities = data.val()
-															//funzione di callback della seconda chiamata a firebase
-															var cback2 = function(data2){
-															//$scope.activities.concat(data2.val())
-															console.log('concatno i due dataset')
-															angular.extend(data2.val(),$scope.activities)
-															console.log('ecco')
-															console.log($scope.activities)
-                                                            $ionicLoading.hide()	
-															}
+                                                            $ionicLoading.hide() // nascondo la rotellina
 															// seconda chiamata a firebase
-															Activities.getTasks(Utilities.formatDate(today),cback2,'lastTime')
+															//Activities.getTasks(Utilities.formatDate(today),cback2,'lastTime')
                                                         }
-                                                        Activities.getTasks(Utilities.formatDate(today),cback)
-													   //Activities.getAllTasks(cback)
+                                                        //Activities.getTasks(Utilities.formatDate(today),cback)
+													   Activities.getAllTasks(cback)
                                                     }
+													$scope.criteria = Utilities.formatDate(new Date); // imposto i criteri del filtro
+													//creo la funzione filtro
+													$scope.matchCriteria = function(criteria){
+														return function(item){
+															console.log('todo:',item.nextTime== criteria)
+															console.log('just inserted or just done:',item.lastTime==criteria)
+															return true
+														}
+													}
 													// $scope.myComparator = function(obj){
 														// if (obj.lastTime == Utilities.formatDate(today) ||obj.nextTime == Utilities.formatDate(today)) return true
 													// } //imposto il criterio del filtro per visualizzare i task che hanno nextTime  o lastTime oggi 
-													
-                                                    $scope.pushDemoActivity = Activities.pushDemoActivity
+													$scope.getTasks = getTasks
+													$scope.deleteTask = function(tid){
+														alert ('Todo'+tid)
+													}
+                                                    $scope.actionSheet= function(tid){
+														$ionicActionSheet.show({
+															 buttons: [
+															   { text: 'Completato' },
+															   { text: 'Modifica' },
+															   { text: 'Cancella' }
+															 ],
+															 titleText: 'Task Actions',
+															 cancelText: 'Annulla',
+															 buttonClicked: function(index) {
+																 var action ={0:$scope.taskDone,1:$scope.updateTask,2:$scope.deleteTask}
+																 alert('tasto: '+index)
+																 action[index](tid)
+															   return true;
+															 }
+														   });
+													}
+													/*$scope.criteria = Utilities.formatDate(new Date())
+													$scope.criteriaMatch = function (criteria){
+														console.log('criteriaMatch')
+														return function(item){
+															console.log('item',item)
+															return (item.lastTime == criteria )||(item.nextTime == criteria) /*voglio vedere oltre ai task 
+															//in programma per oggi i task aggiunti  e svolti in giornata
+														}
+													}*/
 
   if (User.isLogged())
      getTasks()

@@ -1,16 +1,20 @@
 <ion-view view-title={{titolo}}>
   <ion-content>
-  <h3 align="center">{{subtitle}}</h3>
+  <h3 align="center">{{subtitle}}
+  <ion-item class="item item-avatar" >
+			  <img ng-src="{{effige}}" style="border-radius:50%;">
+			  </ion-item>
+  
+			  </h3>
 	<!-- <button class="button ion-chevron-right ion-plus-round" ng-click="newTask()"></button> -->
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="(key,task) in activities" type="item-text-wrap" ng-click="updateTask(key)" can-swipe="true">
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="(key,task) in activities|filter:matchCriteria(criteria)" type="item-text-wrap"  can-swipe="true">
         <h2>task: {{task.activity}}</h2>
         <p><b>ultima ripetizione il :</b>{{task.lastTime}}</p>
+        <p><b>prossima volta :</b>{{task.nextTime}}</p>
         <p> <b>ripetuto:</b>  {{task.rep}} volte</p>
-        <p><b> note</b> {{task.nota}} <p>
-        <button class="button  ion-edit" ng-click="updateTask(key)" ></button>
-		<button class="button  ion-checkmark" ng-click="taskDone(key)"></button>
-		<button class="button  ion-trash-b" ng-click="deleteTask(key)"></button>
+        <p><b> nota</b> {{task.nota||'nessuna nota'}} <p>
+        <i class="icon ion-android-more-vertical icon-accessory" ng-click= "actionSheet(key)"></i>
           <!--  <ion-option-button class="button-energized" ng-click = updateTask(key)>
            Modifica
            </ion-option-button>

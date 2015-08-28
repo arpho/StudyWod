@@ -67,6 +67,16 @@ var tab ={
                 }
             }
         }
+    ,all=  { name:'all'
+            ,parent:'workout'
+            ,url: '/all'
+            ,views: {
+                'all': {
+                    templateUrl: 'templates/wod.html'
+                    ,controller: 'AllController'
+                }
+            }
+        }
     ,detail= {
       name:'detail'
       ,parent:'chats'
@@ -129,6 +139,7 @@ angular.module('StudyWod', ['ionic', 'StudyWod.controllers', 'StudyWod.services'
 	.state(workout)
 	.state(wod)
 	.state(wot)
+	.state(all)
 
   // Each tab has its own nav history stack:
 

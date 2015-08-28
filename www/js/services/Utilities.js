@@ -4,8 +4,6 @@ angular.module('StudyWod.services').factory('Utility',['$firebaseAuth'
 ,'$ionicLoading'
 ,'$timeout'
 ,function($firebaseAuth,popup,$window, $ionicLoading, $timeout){
-    console.log('popup')
-    console.log($timeout)
 	/* memorizza un valore in locale
 	@param String chiave
 	@param String valore

@@ -73,7 +73,7 @@ $scope.doCreateTask = function(task){
       
       Activities.createTask(task,cback)
   }
-  
+
 $scope.newTask = function(){
       $scope.task = {}
       $scope.task.history = [Utilities.formatDate(new Date())]
