@@ -64,9 +64,6 @@ angular.module('StudyWod.services').factory('Utility',['$firebaseAuth'
                 $ionicLoading.hide();
             }
             ,notify = function(text) {
-        //show(text);
-   /*     var alarmTime = new Date();
-        alarmTime.setMinutes(alarmTime.getMinutes() + 1);*/
         var myPopup = popup.alert({title:text,okText:'Ok'})
 		myPopup.then(function(res) {
     console.log('Tapped!', res);
@@ -74,20 +71,28 @@ angular.module('StudyWod.services').factory('Utility',['$firebaseAuth'
   $timeout(function(){
             myPopup.close()
 	  },1500)
-       /* $cordovaLocalNotification.add({
-            id: "1234",
-            date: alarmTime,
-            message: "This is a message",
-            title: "This is a title",
-            autoCancel: true,
-            sound: null
-        }).then(function () {
-            console.log("The notification has been set");
-        });*/
-      // $window.setTimeout(function() {
-      //   hide();
-      // }, 1999);
-    };
+    }
+	/*apre un popup di conferma
+	@param string titolo del popup
+	@param string messaggio del popup
+	@param function funzione per conferma
+	@param function funzione annulla*/
+	, confirmPopup = function(titolo,msg,confirmFunction,cancelFunction){
+		confirmPopup =popup.confirm({title:titolo,template:msg})
+		confirmPopup.then(function(res){
+			if( res) confirmFunction()
+				else cancelFunction()
+		})
+	}
+	/* aggiunge i parametri di un oggetto ad un'altro
+	@param Object oggetto destinazione cui saranno aggiunti i parametri
+	@param Object oggetto che sarà aggiunto al primo
+	@return Object il primo oggetto cui sono stati aggiunti quelli del primo*/
+	,addObj = function(dst,src){
+		for (var key in src){
+			dst[key]= src[key]
+		}
+	};
         var  baseUrl = 'https://studywod.firebaseio.com/';
                 var auth = new Firebase(baseUrl);
                 var getAuth = function(){
@@ -112,6 +117,8 @@ angular.module('StudyWod.services').factory('Utility',['$firebaseAuth'
 					,'setPreviousState':setPreviousState
 					,'setValue':setValue
 					,'getValue':getValue
+					,'addObj':addObj
+					,'confirmPopup':confirmPopup
                 };
 
 }]

@@ -125,21 +125,54 @@ angular.module('StudyWod.controllers')
                                                         //Activities.getTasks(Utilities.formatDate(today),cback)
 													   Activities.getAllTasks(cback)
                                                     }
-													$scope.criteria = Utilities.formatDate(new Date); // imposto i criteri del filtro
-													//creo la funzione filtro
-													$scope.matchCriteria = function(criteria){
-														return function(item){
-															console.log('todo:',item.nextTime== criteria)
-															console.log('just inserted or just done:',item.lastTime==criteria)
-															return true
+														$scope.criteria = Utilities.formatDate(new Date); // imposto i criteri del filtro
+														//creo la funzione filtro
+														$scope.criteriaMatch = function(criteria){
+															return function(item){
+																console.log('todo:',item.nextTime== criteria)
+																console.log('just inserted or just done:',item.lastTime==criteria)
+																return (item.nextTime== criteria)
+															}
 														}
+												
+												
+													$scope.getWodsTasks = function(){
+                                                        $ionicLoading.show({template:'Loading Wod...'})
+														var today = new Date()
+														,cback = function(data){
+															console.log('external cback')
+                                                            //popolo la lista delle attivita da fare in giornata
+                                                            $scope.activities = data.val()
+															//callback invocato dalla chiamata a firebase per i task inseriti e/o svolti in giornata
+															var innerCback = function(data){
+																console.log('innerCback')
+																Utilities.addObj($scope.activities,data.val())// aggiungo le attività della seconda chiamata a quelle della prima
+																
+                                                            $ionicLoading.hide() // nascondo la rotellina
+															}
+															Activities.getTasks(Utilities.formatDate(today),innerCback,'lastTime')//chiamata a firebase per le attività svolte  in giornata
+															
+														}
+														Activities.getTasks(Utilities.formatDate(today),cback)//chiamata a firebase per le attività odierne
 													}
 													// $scope.myComparator = function(obj){
 														// if (obj.lastTime == Utilities.formatDate(today) ||obj.nextTime == Utilities.formatDate(today)) return true
 													// } //imposto il criterio del filtro per visualizzare i task che hanno nextTime  o lastTime oggi 
 													$scope.getTasks = getTasks
+													$scope.doDelete = function(tid){
+														$ionicLoading.show({template:'Deleting task...'})
+														Activities.deleteTask(tid,function(res){
+															$ionicLoading.hide()
+															if (res) Utilities.notify('spiacente, qualcosa è andata male')
+															else Utilities.notify('il task è stato cancellato')
+														})
+														
+													}
+													$scope.showNextTimeTask = function(){
+														return false
+													}
 													$scope.deleteTask = function(tid){
-														alert ('Todo'+tid)
+														Utilities.confirmPopup('cancellare '+$scope.activities[tid].activity+'?','Vuoi proprio cancellarlo?',function(){$scope.doDelete(tid)},function(){console.log('no non vuole')})
 													}
                                                     $scope.actionSheet= function(tid){
 														$ionicActionSheet.show({
@@ -152,7 +185,6 @@ angular.module('StudyWod.controllers')
 															 cancelText: 'Annulla',
 															 buttonClicked: function(index) {
 																 var action ={0:$scope.taskDone,1:$scope.updateTask,2:$scope.deleteTask}
-																 alert('tasto: '+index)
 																 action[index](tid)
 															   return true;
 															 }
@@ -169,7 +201,7 @@ angular.module('StudyWod.controllers')
 													}*/
 
   if (User.isLogged())
-     getTasks()
+     $scope.getWodsTasks ()
   else {
 	 //Utilities.setPreviousState('wod')
 	 $state.go('signin')

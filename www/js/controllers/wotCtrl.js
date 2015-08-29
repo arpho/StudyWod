@@ -54,51 +54,9 @@ $ionicModal.fromTemplateUrl('templates/task.html', {
 	}
 
 
-$scope.updateTask = function(tid){
-     $scope.task = $scope.activities[tid]
-     console.log("updating task")
-     $scope.action = "Modifica" // imposto il testo del pulsante nella finestra modale
-     $scope.doAction = function(){
-         $scope.doUpdateTask(tid,$scope.task)
-         console.log('nota '+$scope.task.nota)
-     }
-     $scope.openModal();
-  }
-  
-$scope.doCreateTask = function(task){
-      $ionicLoading.show({template:'Creating new task...'})
-      var cback = function(){
-          $ionicLoading.hide()
-      }
-      
-      Activities.createTask(task,cback)
-  }
 
-$scope.newTask = function(){
-      $scope.task = {}
-      $scope.task.history = [Utilities.formatDate(new Date())]
-      $scope.task.lastTime = Utilities.formatDate(new Date())
-      $scope.task.nextTime = Utilities.formatDate(Utilities.addDays(new Date(),1))
-      $scope.task.rep =0;
-      $scope.action ='Crea'
-	  
-      $scope.doAction = function(){
-          $scope.doCreateTask($scope.task)
-      }
-     $scope.openModal();
-  }
 
-$scope.taskDone = function (id){
-    $ionicLoading.show({template:'Updating Task'})
-    var task = $scope.activities[id];
-    task.nextTime =  Utilities.formatDate(Utilities.addDays(new Date(),Activities.getDays(task.rep)))
-    task.rep += 1
-    task.history.push(Utilities.formatDate(new Date()))
- 	var callback = function(){
-        $ionicLoading.hide()
-    }
-    Activities.updateTask(id,task,callback)
-}
+
 
 
 	if (User.isLogged())

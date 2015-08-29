@@ -100,7 +100,6 @@ angular.module('StudyWod.services')
 			  
 			  function authDataCallback(authData) {
 				  if (authData) {
-					console.log("User " + authData.uid + " is logged in with " + authData.provider); 
 					auth.child("users").child(authData.uid).once("value",function(utente){
 						newUser = utente.val ()||{ // se l'utente è già presente lo riscrivo uguale
 						  provider: authData.provider,

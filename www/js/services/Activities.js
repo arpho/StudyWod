@@ -32,6 +32,13 @@ angular.module('StudyWod.services')
 					console.log('utente non loggato')
 
 			}
+			
+			/* cancella un task
+			@param string id del task
+			@param function funzione di calback*/
+			activities.deleteTask = function(tid,cback){
+				ref.child('tasks').child(User.getUid()).child(tid).remove(cback);
+			}
 
 			/*
 			interroga il server di firebase
