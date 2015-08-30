@@ -1,6 +1,6 @@
 angular.module('StudyWod.controllers')
 .controller('SignInController', [
-		'$scope', '$ionicLoading', 'Utility', 'User', '$rootScope', '$state', function ($scope, $ionicLoading, Utilities, user, $rootScope, $state,stateMonitor) {
+		'$scope', '$ionicLoading', 'Utility', 'User', '$rootScope', '$state', function ($scope, $ionicLoading, Utilities, user, $rootScope, $state, stateMonitor) {
 			//location.html5Mode(true)
 			// check session
 			// $rootScope.checkSession();
@@ -31,13 +31,13 @@ angular.module('StudyWod.controllers')
 					if (error) {
 						user.setLogged(false)
 						if (error.code == 'INVALID_EMAIL') {
-							$rootScope.notify('Invalid Email Address');
+							Utilities.notify('Invalid Email Address');
 						} else if (error.code == 'INVALID_PASSWORD') {
-							$rootScope.notify('Invalid Password');
+							Utilities.notify('Invalid Password');
 						} else if (error.code == 'INVALID_USER') {
-							$rootScope.notify('Invalid User');
+							Utilities.notify('Invalid User');
 						} else {
-							$rootScope.notify('Oops something went wrong. Please try again later');
+							Utilities.notify('Oops something went wrong. Please try again later');
 						}
 					} else {
 						console.log("Authenticated successfully with payload:", authData);
@@ -56,7 +56,7 @@ angular.module('StudyWod.controllers')
 						user.setProvider(authData.provider);
 						user.setGravatar(authData.password.profileImageURL);
 						$rootScope.effige = authData.password.profileImageURL
-						user.setUserName(user.getName(authData));
+							user.setUserName(user.getName(authData));
 						// alert('signing '+user.getMail()+' up  with '+user.getPassword());
 						Utilities.notify("benvenuto  " + user.getUserName())
 						$rootScope.isUserLogged = user.isLogged

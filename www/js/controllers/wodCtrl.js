@@ -113,7 +113,8 @@ angular.module('StudyWod.controllers')
                                                         Activities.updateTask(id,task,callback)
                                                     }
                                                     var getTasks = function(){
-                                                        $ionicLoading.show({template:'Loading Wod...'})
+														var loadingText = {'wod':'Loading Wod...','wot':'Loading Wot...','all':'Loading All The Tasks...'}
+                                                        $ionicLoading.show({template:loadingText[$state.current.name]})
                                                         var today = new Date()
                                                         var cback = function(data){
                                                             //instanzio la lista delle attivita

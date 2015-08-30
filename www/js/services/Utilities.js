@@ -22,7 +22,7 @@ angular.module('StudyWod.services').factory('Utility',['$firebaseAuth'
 	}
 	,show = function(text) {
             var loading = $ionicLoading.show({
-                content: text ? text : 'Loading..',
+                template: text ||'Loading...',
                 animation: 'fade-in',
                 showBackdrop: true,
                 maxWidth: 200,
