@@ -4,11 +4,12 @@
   <ion-item class="item item-avatar" >
 			  <img ng-src="{{effige}}" style="border-radius:50%;">
 			  </ion-item>
-  
+
 			  </h3>
 	<!-- <button class="button ion-chevron-right ion-plus-round" ng-click="newTask()"></button> -->
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="(key,task) in activities|filter:criteriaMatch(criteria)" type="item-text-wrap"  can-swipe="true">
+      <!--|filter:criteriaMatch(criteria)-->
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="(key,task) in activities" type="item-text-wrap"  can-swipe="true">
         <h2>task: {{task.activity}}</h2>
         <p><b>ultima ripetizione il :</b>{{task.lastTime}}</p>
         <div ngshow="showNextTimeTask()"><p><b>prossima volta :</b>{{task.nextTime}}</p></div>

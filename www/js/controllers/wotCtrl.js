@@ -15,23 +15,23 @@ $ionicModal.fromTemplateUrl('templates/task.html', {
   }).then(function(modal) {
     $scope.modal = modal;
   });
-  
+
   $scope.openModal = function() {
     $scope.modal.show();
   };
-  
+
   $scope.showMenu = function() {
 	  console.log('menu')
     $menuDelegate.toggleLeft();
   };
-  
+
   $scope.closeModal = function() {
     $scope.modal.hide();
   };
   //Cleanup the modal when we're done with it!
   $scope.$on('$destroy', function() {
     $scope.modal.remove();
-  });													
+  });
 	$scope.titolo = "Wot";
 	var today = new Date()
 	var tomorrow = Utilities.addDays(today,1)
@@ -44,7 +44,7 @@ $ionicModal.fromTemplateUrl('templates/task.html', {
 			console.log("cback gettasts")
 			//instanzio la lista delle attivita
 			$scope.activities = data.val()
-			
+
 			console.log(data)
 			$ionicLoading.hide()
 		}
@@ -52,15 +52,8 @@ $ionicModal.fromTemplateUrl('templates/task.html', {
 		var tomorrow = Utilities.addDays(today,1)
 		Activities.getTasks(Utilities.formatDate(tomorrow),cback)
 	}
-
-
-
-
-
-
-
 	if (User.isLogged())
-		 getTasks()
+    $scope.activities = Activities.getTasksList()
 	else{
 	 //Utilities.setPreviousState('wot')
 	 $state.go('signin')

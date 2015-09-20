@@ -38,29 +38,29 @@
     <script src="js/controllers/allCtrl.js"></script>
   </head>
   <body ng-app="StudyWod">
-  
-  
+  <a href="http://www.freepik.com/free-photos-vectors/school">School vector designed by Freepik</a>
+
     <!--
       The nav bar that will be updated as we navigate between views.
     -->
 	<ion-side-menus>
 	<ion-side-menu-content ng-controller="NavCtrl">
     <ion-nav-bar class="bar-positive">
-          
-            
+
+
 
             <ion-nav-buttons side="right">
 			<div ng-show="showPlus">
 				<button class="button button-icon button-clear ion-plus-round" ng-click="newTask()"></button>
-			
+
 			</div>
-			
+
               <button class="button button-icon button-clear ion-navicon" ng-click="showRightMenu()">
               </button>
             </ion-nav-buttons>
-			
-      
-			
+
+
+
 			<ion-nav-buttons side="left">
               <button menu-toggle="left" class="button button-icon icon ion-navicon" ng-click="showMenu()">
               </button>
@@ -71,9 +71,9 @@
 			</ion-nav-buttons> -->
           </ion-nav-buttons></ion-nav-bar>
 		  <ion-nav-view animation="slide-left-right"></ion-nav-view>
-		  
+
     <ion-nav-view></ion-nav-view>
-        </ion-side-menu-content> 
+        </ion-side-menu-content>
 
     <!--
       The views will be rendered in the <ion-nav-view> directive below
@@ -117,6 +117,6 @@
           </ion-content>
         </ion-side-menu>
 	</ion-side-menus>
-	
+
   </body>
 </html>

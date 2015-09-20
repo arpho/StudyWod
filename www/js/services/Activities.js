@@ -32,13 +32,47 @@ angular.module('StudyWod.services')
 					console.log('utente non loggato')
 
 			}
-			
+
 			/* cancella un task
 			@param string id del task
 			@param function funzione di calback*/
 			activities.deleteTask = function(tid,cback){
 				ref.child('tasks').child(User.getUid()).child(tid).remove(cback);
 			}
+/*
+setta la lista dei tasks
+@param oggetto che rappresenta i task ritornato dalla chiamata a firebase
+@return null
+*/
+activities.setTasks = function(data){
+activities.tasks = []
+/*ogni task ha una funzione done*/
+for ( var activity in  data.val()){
+                                     var task = data.val()[activity]
+                                     task.id = activity
+                                     task.done = function()
+                                     {
+                                       today = new  Date()
+                                       task.lastTime = Utilities.formatDate(today)
+                                       next = Utilities.addDays(today,Activities.getDays(task,task.rep)); // data prossima ripetizione
+                                       task.nextTime = Utilities.formatDate(next)
+                                     }
+                                     activities.tasks.push(task)
+                                   }
+}
+/*
+ritorna la lista dei task caricati al login
+@return [tasks]
+*/
+activities.getTasksList = function(){
+console.log('getting tasks list in activities ')
+var tasks = []
+for (var t in activities.tasks)
+
+
+tasks.push(activities.tasks[t])
+return tasks
+}
 
 			/*
 			interroga il server di firebase
@@ -46,7 +80,7 @@ angular.module('StudyWod.services')
 			@param  funzione di callback, per gestire la risposta del server
 			 */
 			activities.getAllTasks = function (cback) {
-				if (User.getUid()) {
+				if (User.isLogged()) {
 					ref.child('tasks').child(User.getUid()).orderByChild('lastTime').on("value", cback, function (errorObject) {
 						console.log("The read failed: " + errorObject.code);
 					})
