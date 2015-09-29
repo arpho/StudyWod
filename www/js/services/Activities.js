@@ -75,8 +75,7 @@ return tasks
 }
 
 			/*
-			interroga il server di firebase
-			@param string  data d'interesse nel formato  "3/8/2015"
+			interroga il server di firebase, recupera tutti i task
 			@param  funzione di callback, per gestire la risposta del server
 			 */
 			activities.getAllTasks = function (cback) {

@@ -9,12 +9,7 @@ angular.module('StudyWod.controllers')
 												,'$state'
 												,'$ionicSideMenuDelegate'
                                                 ,function($scope,Utilities,Activities,$ionicLoading,$ionicModal,User,log,$state,$menuDelegate){
-$ionicModal.fromTemplateUrl('templates/task.html', {
-    scope: $scope,
-    animation: 'slide-in-up'
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
+
 
   $scope.openModal = function() {
     $scope.modal.show();

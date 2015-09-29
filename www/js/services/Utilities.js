@@ -8,8 +8,22 @@ angular.module('StudyWod.services').factory('Utility',['$firebaseAuth'
 	@param String chiave
 	@param String valore
 	*/
-	var setValue = function(key,value){
+	var setLocalValue = function(key,value){
 		$window.localStorage[key] = value
+	}
+
+	//variabile usata per evitare le ripetizioni
+	,repetition = {}
+	/*
+	dato un identificativo verifica se è già stato inizializzato
+	@param key: string chiave di controllo
+	@return int numero di ripetizioni
+	*/
+	,counter = function(key){
+
+	repetition[key] = repetition[key] +1||0 /*se la chiave è già stata passata ne incrementa il
+	 contatore altrimenti lo inizializza*/
+	return repetition[key]
 	}
 	/*
 	recupera un valore salvato in locale
@@ -17,7 +31,7 @@ angular.module('StudyWod.services').factory('Utility',['$firebaseAuth'
 	@param String valore di default
 	@return String il valore memorizzato
 	*/
-	, getValue = function(key,defaultValue){
+	, getLocalValue = function(key,defaultValue){
 		return $window.localStorage[key] ||defaultValue
 	}
 	,show = function(text) {
@@ -52,7 +66,7 @@ angular.module('StudyWod.services').factory('Utility',['$firebaseAuth'
 				}*/
 				return   [d.getDate(), d.getMonth()+1, d.getFullYear()].join('/')
 			}
-			
+
 			,previousState,
 			setPreviousState = function(state){
 				previousState = state
@@ -102,7 +116,7 @@ angular.module('StudyWod.services').factory('Utility',['$firebaseAuth'
 			var ref  = new Firebase(baseUrl+"tasks")
 			return ref
 		}
-		
+
 
 
         return {
@@ -115,12 +129,13 @@ angular.module('StudyWod.services').factory('Utility',['$firebaseAuth'
 					,'getActivitiesRef':getActivitiesRef
 					,'getPreviousState':getPreviousState
 					,'setPreviousState':setPreviousState
-					,'setValue':setValue
-					,'getValue':getValue
+					,'setLocalValue':setLocalValue
+					,'getLocalValue':getLocalValue
 					,'addObj':addObj
 					,'confirmPopup':confirmPopup
+					,'counter': counter
                 };
 
 }]
-	
+
 	);

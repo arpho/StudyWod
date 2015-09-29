@@ -15,7 +15,7 @@ var tab ={
     ,abstract:true
     ,url:"/workout"
     ,templateUrl: "templates/workout.html"
-	, controller: "WodController"
+    , controller: "WodController"
   }
   ,chats={
     name :'chats',
@@ -96,9 +96,9 @@ var tab ={
                                     templateUrl:'templates/tab-dash.html'
                                     ,controller:'DashCtrl'
                   }
-                } 
+                }
             }
-    
+
    // Ionic Starter App
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
@@ -174,7 +174,7 @@ angular.module('StudyWod', ['ionic', 'StudyWod.controllers', 'StudyWod.services'
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/auth/signin');
+  $urlRouterProvider.otherwise('/workout/wod');
 //  $urlRouterProvider.otherwise('/tab/chats');
 
 });

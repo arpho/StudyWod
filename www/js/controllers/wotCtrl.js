@@ -9,12 +9,7 @@ angular.module('StudyWod.controllers')
 												,'$state'
 												,'$ionicSideMenuDelegate'
                                                 ,function($scope,Utilities,Activities,$ionicLoading,$ionicModal,User,log,$state,$menuDelegate){
-$ionicModal.fromTemplateUrl('templates/task.html', {
-    scope: $scope,
-    animation: 'slide-in-up'
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
+
 
   $scope.openModal = function() {
     $scope.modal.show();
@@ -33,10 +28,10 @@ $ionicModal.fromTemplateUrl('templates/task.html', {
     $scope.modal.remove();
   });
 	$scope.titolo = "Wot";
-	var today = new Date()
+
+var today = new Date()
 	var tomorrow = Utilities.addDays(today,1)
 	$scope.subtitle = "Work of Tomorrow  " + Utilities.formatDate(tomorrow,true);
-
 	var getTasks = function(){
 		$ionicLoading.show({template:'Loading Wot...'})
 		console.log('retrieving  tasks')

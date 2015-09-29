@@ -106,17 +106,12 @@ angular.module('StudyWod.controllers', ['StudyWod.services'])
 							,'$ionicLoading'
 							, '$state'
 							, function($scope, $ionicSideMenuDelegate,$ionicModal,Activities,Utilities,$ionicLoading,$state) {
-		$ionicModal.fromTemplateUrl('templates/task.html', {
-			scope: $scope,
-			animation: 'slide-in-up'
-		}).then(function(modal) {
-			$scope.modal = modal;
-			});
-			
+
+
 		$scope.openModal = function() {
 		$scope.modal.show();
   };
-  
+
   $scope.closeModal = function() {
     $scope.modal.hide();
   };
@@ -126,15 +121,15 @@ angular.module('StudyWod.controllers', ['StudyWod.services'])
           $ionicLoading.hide()
 		  $scope.closeModal()
       }
-      
+
       Activities.createTask(task,cback)
-  }	
+  }
 	  $scope.$on('$stateChangeStart',function(){
 		  Utilities.setPreviousState($state.current.name)
 	  })
 	  //$scope.myAvatar = User.getGravatar()
 	  $scope.$on('$stateChangeSuccess',function(){
-		  if ($state.current.parent =='workout') $scope.showPlus= true 
+		  if ($state.current.parent =='workout') $scope.showPlus= true
 		  else $scope.showPlus = false
 	  })
 	  $scope.newTask = function(){
@@ -144,14 +139,14 @@ angular.module('StudyWod.controllers', ['StudyWod.services'])
       $scope.task.nextTime = Utilities.formatDate(Utilities.addDays(new Date(),1))
       $scope.task.rep =0;
       $scope.action ='Crea'
-	  
+
       $scope.doAction = function(){
           $scope.doCreateTask($scope.task)
       }
      $scope.openModal();
-	 
+
   }
-			
+
 	  $scope.showMenu = function () {
 		$ionicSideMenuDelegate.toggleLeft();
 	  };

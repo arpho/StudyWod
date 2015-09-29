@@ -32,6 +32,7 @@ angular.module('StudyWod.services')
 			}
 			this.setToken = function (token) {
 				this.user.token = token;
+				return this
 			}
 
 			this.getMail = function () {
@@ -48,15 +49,18 @@ angular.module('StudyWod.services')
 			this.setUserName = function (name) {
 				this.user.name = name;
 				console.log("setting username: " + name);
+				return this
 			}
 
 			this.setProvider = function (provider) {
 				this.user.provider = provider;
 				console.log("setting provider: " + provider);
+				return this
 			}
 			this.setGravatar = function (gravatar) {
 				this.user.gravatar = gravatar;
 				console.log(" setted gravatar: " + gravatar)
+				return this
 			}
 
 			this.getGravatar = function () {
@@ -66,6 +70,7 @@ angular.module('StudyWod.services')
 			this.setUid = function (uid) {
 				this.user.uid = uid;
 				console.log("setting uid: " + uid);
+				return this
 			}
 			this.getUid = function () {
 				return this.user.uid
@@ -73,6 +78,7 @@ angular.module('StudyWod.services')
 
 			this.setLogged = function (logged) {
 				this.user.logged = logged
+				return this
 			}
 
 			this.isLogged = function () {
@@ -85,6 +91,7 @@ angular.module('StudyWod.services')
 			this.setUser = function (email, password) {
 				this.user.email = email;
 				this.user.password = password;
+				return this
 			}
 			// here we will just simulate this with an isNewUser boolean
 			var isNewUser = true;
