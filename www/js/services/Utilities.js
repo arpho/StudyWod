@@ -115,8 +115,8 @@ angular.module('StudyWod.services').factory('Utility',['$firebaseAuth'
 		var  getActivitiesRef = function(){
 			var ref  = new Firebase(baseUrl+"tasks")
 			return ref
-		}
 
+		}
 
 
         return {

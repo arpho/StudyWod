@@ -51,6 +51,6 @@ var today = new Date()
     $scope.activities = Activities.getTasksList()
 	else{
 	 //Utilities.setPreviousState('wot')
-	 $state.go('signin')
+	 //$state.go('signin')
 	}
 }])

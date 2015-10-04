@@ -80,7 +80,7 @@ angular.module('StudyWod.controllers')
                 $rootScope.isUserLogged = user.isLogged
                   $rootScope.gravatar = user.getGravatar()
                   var nextState = Utilities.getPreviousState() || 'wod'
-                  $state.go(nextState);
+                  //$state.go(nextState);
           }
         };
 

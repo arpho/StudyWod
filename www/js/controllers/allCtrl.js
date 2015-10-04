@@ -32,7 +32,8 @@ angular.module('StudyWod.controllers')
 	var tomorrow = Utilities.addDays(today,1)
 	$scope.subtitle = "All tasks  " //+ Utilities.formatDate(tomorrow,true);
 
-
+$scope.activities ={}
+$scope.activities['a'] = {'activity':'ciao','nota':'test statico'}
 
 
 $scope.updateTask = function(tid){
@@ -90,6 +91,6 @@ $scope.newTask = function(){
 		 $scope.activities = Activities.getTasksList()
 	else{
 	 //Utilities.setPreviousState('wot')
-	 $state.go('signin')
+	 //$state.go('signin')
 	}
 }])

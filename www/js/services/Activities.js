@@ -104,7 +104,23 @@ return tasks
 					return out
 
 			}
-
+			/* credo che l'oggetto restituito da firebase con data.val interferisca con ng-repeat
+      			quindi ne faccio una copia
+      			@parameter data da firebase
+      			@return oggetto copia di data.val()*/
+activities.normalizeTasks = function(data){
+           		var tasks = {}
+           		for(var key in data.val()){
+           		  tasks[key]= {}
+           		   tasks[key].activity = data.val()[key].activity
+           		   tasks[key].nota = data.val()[key].nota
+           		   tasks[key].rep = data.val()[key].rep
+           		   tasks[key].lastTime = data.val()[key].lastTime
+           		   tasks[key].nextTime = data.val()[key].nextTime
+           		   tasks[key].history = data.val()[key].history
+           		}
+           		return tasks;
+           		}
 			activities.createTask = function (task, cback) {
 				ref.child("tasks").child(User.getUid()).push(task, cback);
 			}

@@ -1,4 +1,5 @@
-<ion-modal-view>
+
+  <ion-modal-view>
   <ion-header-bar>
     <h1 class="title">Login</h1>
     <div class="buttons">
@@ -14,6 +15,7 @@
       <span class="input-label">Password</span>
       <input type="password" ng-model="user.password">
     </label>
+    <ion-checkbox ng-model="user.storeCredentials">Remenber Credentials</ion-checkbox>
     <label class="item item-input">
       <button class="button button-block button-positive" ng-click="validateUser()">
         Sign In
