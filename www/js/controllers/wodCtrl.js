@@ -63,6 +63,26 @@ angular.module('StudyWod.controllers')
                                                                     var today = new Date()
                                                                     $scope.subtitle = "Work of Today  " + Utilities.formatDate(today,true);
                                                 console.log('wodctrl')
+
+                                                    $scope.deleteTask = function(tid){
+                                                        Utilities.confirmPopup('cancellare '+$scope.activities[tid].activity+'?','Vuoi proprio cancellarlo?',function(){$scope.doDelete(tid)},function(){console.log('no non vuole')})
+                                                    }
+                                                    $scope.actionSheet= function(tid){
+                                                        $ionicActionSheet.show({
+                                                             buttons: [
+                                                               { text: 'Completato' },
+                                                               { text: 'Modifica' },
+                                                               { text: 'Cancella' }
+                                                             ],
+                                                             titleText: 'Task Actions',
+                                                             cancelText: 'Annulla',
+                                                             buttonClicked: function(index) {
+                                                                 var action ={0:$scope.taskDone,1:$scope.updateTask,2:$scope.deleteTask}
+                                                                 action[index](tid)
+                                                               return true;
+                                                             }
+                                                           });
+                                                    }
                                                 var showLogin = function(){
                                                   $scope.validateUser = function(){
                                                   console.debug($scope.user)

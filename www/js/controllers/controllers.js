@@ -1,5 +1,5 @@
 angular.module('StudyWod.controllers',[])
- 
+
 
 
 
@@ -32,8 +32,32 @@ angular.module('StudyWod.controllers',[])
 
 
     $ionicModal.fromTemplateUrl('templates/newItem.html', function(modal) {
-        $scope.newTemplate = modal;
-    });
+        scope: $scope,
+       animation: 'slide-in-up'
+    }).then(function(modal) {
+                                                        console.log('setting modal new item',modal)
+                                                          $scope.modal = modal;
+                                                          $scope.showModal = function() {
+                                                          $ionicModal.fromTemplateUrl('templates/taskPopup.html', {
+                                                                                                              scope: $scope,
+                                                                                                              animation: 'slide-in-up'
+                                                                                                            }).then(function(modal) {
+                                                                                                            console.log('setting modal',modal)
+                                                                                                              $scope.modal = modal;
+                                                                                                              $scope.openModal = function() {
+                                                                                                               $scope.modal.show();
+                                                                                                              };
+                                                                                                              $scope.closeModal = function() {
+                                                                                                                 $scope.modal.hide();
+                                                                                                              };
+                                                                                                              $scope.openModal()
+                                                                                                            });
+                                                           $scope.modal.show();
+                                                          };
+                                                          $scope.closeModal = function() {
+                                                             $scope.modal.hide();
+                                                          };
+                                                        });
 
     $scope.newTask = function() {
         $scope.newTemplate.show();
@@ -143,7 +167,7 @@ angular.module('StudyWod.controllers',[])
 }).controller('ContentController',function($scope, $ionicSideMenuDelegate,$ionicModal){
 $scope.toggleLeft = function() {
     $ionicSideMenuDelegate.toggleLeft();
-	
+
   };});
 
 

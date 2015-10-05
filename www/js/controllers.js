@@ -108,8 +108,21 @@ angular.module('StudyWod.controllers', ['StudyWod.services'])
 							, function($scope, $ionicSideMenuDelegate,$ionicModal,Activities,Utilities,$ionicLoading,$state) {
 
 
-		$scope.openModal = function() {
-		$scope.modal.show();
+		$scope.openModal = function() {$ionicModal.fromTemplateUrl('templates/taskPopup.html', {
+                                                                                       scope: $scope,
+                                                                                       animation: 'slide-in-up'
+                                                                                     }).then(function(modal) {
+                                                                                     console.log('setting modal',modal)
+                                                                                       $scope.modal = modal;
+                                                                                       $scope.openModal = function() {
+                                                                                        $scope.modal.show();
+                                                                                       };
+                                                                                       $scope.closeModal = function() {
+                                                                                          $scope.modal.hide();
+                                                                                       };
+                                                                                       $scope.openModal()
+                                                                                       $scope.modal.show();
+                                                                                     });
   };
 
   $scope.closeModal = function() {
