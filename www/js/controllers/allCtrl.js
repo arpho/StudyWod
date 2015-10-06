@@ -87,10 +87,14 @@ $scope.newTask = function(){
 
 
 
-	if (User.isLogged())
-		 $scope.activities = Activities.getTasksList()
-	else{
-	 //Utilities.setPreviousState('wot')
-	 //$state.go('signin')
-	}
+	if (User.isLogged()){
+  	var taskCback = function(data){
+       $scope.activities = data.val()// Activities.normalizeTasks( data)
+       console.log(' acquisita la lista  dei task ')
+       $ionicLoading.hide()
+    }
+    $ionicLoading.show({template:'loading task...'})
+    Activities.getAllTasks(taskCback)
+      //$scope.activities = Activities.getTasksList()
+    }
 }])

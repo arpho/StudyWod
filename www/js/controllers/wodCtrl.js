@@ -60,7 +60,11 @@ angular.module('StudyWod.controllers')
                                                       // Execute action
                                                   });
                                                                     $scope.titolo = "Wod";
-                                                                    var today = new Date()
+                                                                    var today = new Date
+                                                                    //definisco il parametro del filtro
+                                                                    $scope.day = Utilities.formatDate(today,true);
+                                                                    //  definisco il parametro per il filtro
+                                                                    //$scope.filterParameters ={'$': 'nextTime':$scope.day,'lastTime':$scope.day}
                                                                     $scope.subtitle = "Work of Today  " + Utilities.formatDate(today,true);
                                                 console.log('wodctrl')
 
@@ -83,6 +87,83 @@ angular.module('StudyWod.controllers')
                                                              }
                                                            });
                                                     }
+
+$scope.doUpdateTask = function(tid,task){
+      console.log('doUpdateTask '+tid)
+
+      console.log(task)
+     $ionicLoading.show({template:"Updating Task..."})
+      var cback = function(error){
+          console.log('update error')
+          console.log(error)
+          $ionicLoading.hide()
+          $scope.closeModal() //chiudo la finestra modale
+      }
+      Activities.updateTask(tid,task,cback)
+  }
+
+
+  $scope.doDelete = function(tid){
+                                                          $ionicLoading.show({template:'Deleting task...'})
+                                                          Activities.deleteTask(tid,function(res){
+                                                              $ionicLoading.hide()
+                                                              if (res) Utilities.notify('spiacente, qualcosa è andata male')
+                                                              else {
+                                                                Utilities.notify('il task è stato cancellato')
+                                                                //ricarico la lista dei task
+                                                                var cbackTasks = function(data){
+                                                                                  activities.setTasks(data) // setto i task in activities
+                                                                                  $ionicLoading.hide();// chiudo la rotella del caricamento task
+                                                                                }
+                                                                activities.getAllTasks(cbackTasks)
+                                                                $scope.activities = Activities.getTasksList()
+                                                              }
+                                                          })
+
+                                                      }
+
+  $scope.updateTask = function(tid){
+     $scope.task = $scope.activities[tid]
+     console.log("updating task")
+     $scope.action = "Update" // imposto il testo del pulsante nella finestra modale
+     //imposto il popup
+     $ionicModal.fromTemplateUrl('templates/taskPopup.html', {
+                                                               scope: $scope,
+                                                               animation: 'slide-in-up'
+                                                             }).then(function(modal) {
+                                                             console.log('setting modal',modal)
+                                                               $scope.modal = modal;
+                                                               $scope.openModal = function() {
+                                                                $scope.modal.show();
+                                                               };
+                                                               $scope.closeModal = function() {
+                                                                  $scope.modal.hide();
+                                                               };
+                                                               $scope.openModal()
+                                                             });
+
+
+
+     $scope.doAction = function(){
+         $scope.doUpdateTask(tid,$scope.task)
+         console.log('nota '+$scope.task.nota)
+     }
+     $scope.openModal();
+  }
+                                                    $scope.taskDone = function (id){
+                                                        $ionicLoading.show({template:'Updating Task'})
+                                                        var task = $scope.activities[id];
+                                                        task.nextTime =  Utilities.formatDate(Utilities.addDays(new Date(),Activities.getDays(task.rep)))
+                                                        task.rep += 1
+                                                        task.history.push(Utilities.formatDate(new Date()))
+                                                                    var callback = function(){
+                                                                        $ionicLoading.hide()
+                                                                        Utilities.notify("next time on "+ task.nextTime)
+                                                                    }
+                                                        Activities.updateTask(id,task,callback)
+                                                    }
+
+
                                                 var showLogin = function(){
                                                   $scope.validateUser = function(){
                                                   console.debug($scope.user)

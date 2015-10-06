@@ -62,8 +62,11 @@ for ( var activity in  data.val()){
 }
 /*
 ritorna la lista dei task caricati al login
+@deprecated
 @return [tasks]
 */
+activities.getFullTasksList = function(cback){
+}
 activities.getTasksList = function(){
 console.log('getting tasks list in activities ')
 var tasks = []
