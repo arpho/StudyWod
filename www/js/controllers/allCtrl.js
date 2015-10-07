@@ -39,6 +39,7 @@ $scope.activities['a'] = {'activity':'ciao','nota':'test statico'}
 $scope.updateTask = function(tid){
      $scope.task = $scope.activities[tid]
      console.log("updating task")
+     $scope.filter2Use ='allFilter'
      $scope.action = "Modifica" // imposto il testo del pulsante nella finestra modale
      $scope.doAction = function(){
          $scope.doUpdateTask(tid,$scope.task)

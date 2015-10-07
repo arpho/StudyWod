@@ -33,6 +33,9 @@ angular.module('StudyWod.controllers')
 var today = new Date()
 	var tomorrow = Utilities.addDays(today,1)
 	$scope.subtitle = "Work of Tomorrow  " + Utilities.formatDate(tomorrow,true);
+	$scope.day = Utilities.formatDate(tomorrow,true);
+        //definisco il filtro da usare nella lista dei task
+  $scope.filter2Use ='wotFilter'
 	var getTasks = function(){
 		$ionicLoading.show({template:'Loading Wot...'})
 		console.log('retrieving  tasks')

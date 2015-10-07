@@ -63,6 +63,8 @@ angular.module('StudyWod.controllers')
                                                                     var today = new Date
                                                                     //definisco il parametro del filtro
                                                                     $scope.day = Utilities.formatDate(today,true);
+                                                                    //definisco il filtro da usare nella lista dei task
+                                                                    $scope.filter2Use ='wodFilter'
                                                                     //  definisco il parametro per il filtro
                                                                     //$scope.filterParameters ={'$': 'nextTime':$scope.day,'lastTime':$scope.day}
                                                                     $scope.subtitle = "Work of Today  " + Utilities.formatDate(today,true);
@@ -232,6 +234,7 @@ $scope.doUpdateTask = function(tid,task){
                                                             Utilities.setLocalValue('password',$scope.user.password)//TODO encript password
                                                             Utilities.setLocalValue('storeCredentials',true)
                                                             User.setUid(authData.uid).setProvider(authData.provider).setGravatar(authData.password.profileImageURL)
+                                                            $rootScope.effige = authData.password.profileImageURL
                                                           }
                                                           else
                                                               Utilities.setLocalValue('storeCredentials',false)
