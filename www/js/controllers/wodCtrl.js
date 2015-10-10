@@ -24,7 +24,16 @@ angular.module('StudyWod.controllers')
                                                 ,$rootScope
                                                 ,$ionicActionSheet
                                                 ,$ionicModal){
-
+                                                /*questa funzione mostra  i task se rispettano le condizioni di filtro
+                                                     @param object il task da verificare
+                                                     @return boolean true se da visualizzare*/
+                                                     $scope.show = function(key){
+                                                     item = $scope.activities[key]
+                                                     day = Utilities.formatDate(new Date(),true);
+                                                     var out =( item.nextTime ==day ||item.lastTime == day)
+                                                      console.log('task visible: ',out)
+                                                     return out;
+                                                     }
                                                 $ionicModal.fromTemplateUrl('templates/loginPopup.html', {
                                                     scope: $scope,
                                                     animation: 'slide-in-up'
@@ -97,24 +106,24 @@ $scope.doUpdateTask = function(tid,task){
      $ionicLoading.show({template:"Updating Task..."})
       var cback = function(error){
           console.log('update error')
-          console.log(error)
           $ionicLoading.hide()
           $scope.closeModal() //chiudo la finestra modale
       }
-      Activities.updateTask(tid,task,cback)
+      Activities.updateTask(angular.copy($scope.activities[tid].key),angular.copy(task),cback) /* angular aggiunge campi
+       di servizio agli oggetti in ng-repeat che non vengono accettati da firebase, quindi li rimuovo con angular.copy*/
   }
 
 
   $scope.doDelete = function(tid){
                                                           $ionicLoading.show({template:'Deleting task...'})
-                                                          Activities.deleteTask(tid,function(res){
+                                                          Activities.deleteTask($scope.activities[tid].key,function(res){
                                                               $ionicLoading.hide()
                                                               if (res) Utilities.notify('spiacente, qualcosa è andata male')
                                                               else {
                                                                 Utilities.notify('il task è stato cancellato')
                                                                 //ricarico la lista dei task
                                                                 var cbackTasks = function(data){
-                                                                                  activities.setTasks(data) // setto i task in activities
+                                                                                  //activities.setTasks(data) // setto i task in activities
                                                                                   $ionicLoading.hide();// chiudo la rotella del caricamento task
                                                                                 }
                                                                 activities.getAllTasks(cbackTasks)
@@ -150,7 +159,8 @@ $scope.doUpdateTask = function(tid,task){
          $scope.doUpdateTask(tid,$scope.task)
          console.log('nota '+$scope.task.nota)
      }
-     $scope.openModal();
+     //$scope.openModal();
+
   }
                                                     $scope.taskDone = function (id){
                                                         $ionicLoading.show({template:'Updating Task'})
@@ -201,9 +211,6 @@ $scope.doUpdateTask = function(tid,task){
                                                   $scope.activities = Activities.getTasksList()
                                                 }
                                                 	else{// utente non loggato
-                                                      /* apro il popup solo una volta
-                                                      TODO eliminare il casino delle ripetizioni e sto schifo di counter*/
-                                                      var n =0;
                                                  if(/*Utilities.counter('loginPopup')==0*/true)
                                                  {
                                                  console.log('refresh')
@@ -212,7 +219,7 @@ $scope.doUpdateTask = function(tid,task){
                                                      $scope.user.email = Utilities.getLocalValue('email')
                                                      $scope.user.password= Utilities.getLocalValue('password')
                                                      $scope.user.storeCredentials = (Utilities.getLocalValue('storeCredentials',false)=='true') //getLocalValue ritorna stringhe
-                                                     console.debug($scope.user)
+                                                     //console.debug($scope.user)
                                                      var loginCback = function(error,authData){
                                                       if (error) {
                                                                     user.setLogged(false)
@@ -226,7 +233,7 @@ $scope.doUpdateTask = function(tid,task){
                                                                       Utilities.notify('Oops something went wrong. Please try again later');
                                                                     }
                                                                   }
-                                                      else{
+                                                      else{// login ok
                                                         console.log("Authenticated successfully with payload:", authData);
                                                             User.setUser($scope.user.email, $scope.user.password).setLogged(true)
                                                         if($scope.user.storeCredentials){
@@ -240,11 +247,13 @@ $scope.doUpdateTask = function(tid,task){
                                                               Utilities.setLocalValue('storeCredentials',false)
                                                           console.log('carico la lista dei tasks')
                                                           var taskCback = function(data){
-                                                            $scope.activities =data.val()// Activities.normalizeTasks( data)
+                                                            var filter = function(task){
+
+                                                              return task.lastTime == $scope.day || task.nextTime == $scope.day
+                                                            }
+                                                            $scope.activities =  Activities.normalizeTasks( data,filter)
                                                             console.log(' acquisita la lista  dei task ')
-                                                            for(var key in $scope.activities){
-                                                            console.log(key,$scope.activities[key])}
-                                                            $ionicLoading.hide()
+                                                            $ionicLoading.hide() //nascondo il modal
                                                            }
                                                            $ionicLoading.show({template:'loading task...'})
                                                            Activities.getAllTasks(taskCback)
@@ -254,8 +263,5 @@ $scope.doUpdateTask = function(tid,task){
                                                      //showPopup()
                                                      showLogin()
                                                 	}
-                                                	else{
-                                                	n =1 +n
-                                                	console.log('controller refreshed'),n}
                                                 	}
 }])

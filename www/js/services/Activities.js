@@ -69,11 +69,11 @@ activities.getFullTasksList = function(cback){
 }
 activities.getTasksList = function(){
 console.log('getting tasks list in activities ')
-var tasks = []
+var tasks = {}
 for (var t in activities.tasks)
 
 
-tasks.push(activities.tasks[t])
+tasks[t] = activities.tasks[t]
 return tasks
 }
 
@@ -107,20 +107,20 @@ return tasks
 					return out
 
 			}
-			/* credo che l'oggetto restituito da firebase con data.val interferisca con ng-repeat
+
+			/* i filtri di angularjs non gestiscono gli oggetti quindi converto la risposta di firebase in un array
+			e aggiungo a tutti gli oggetti il campo chiave per non peredere l'identificativo di firebase
       			quindi ne faccio una copia
       			@parameter data da firebase
+      			@parameter funzione che valuta la visibilità del task
       			@return oggetto copia di data.val()*/
-activities.normalizeTasks = function(data){
-           		var tasks = {}
+activities.normalizeTasks = function(data,filter){
+           		var tasks = []
            		for(var key in data.val()){
-           		  tasks[key]= {}
-           		   tasks[key].activity = data.val()[key].activity
-           		   tasks[key].nota = data.val()[key].nota
-           		   tasks[key].rep = data.val()[key].rep
-           		   tasks[key].lastTime = data.val()[key].lastTime
-           		   tasks[key].nextTime = data.val()[key].nextTime
-           		   tasks[key].history = data.val()[key].history
+           		  var task = data.val()[key]
+           		  task.key = key
+           		  if (filter(task))
+           		  tasks.push(task)
            		}
            		return tasks;
            		}
