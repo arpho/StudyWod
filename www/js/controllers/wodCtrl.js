@@ -178,7 +178,6 @@ $scope.doUpdateTask = function(tid,task){
 
                                                 var showLogin = function(){
                                                   $scope.validateUser = function(){
-                                                  console.debug($scope.user)
                                                   $scope.closeModal()
                                                   User.validateUser($scope.user.email,$scope.user.password,loginCback)
                                                   }
@@ -240,11 +239,12 @@ $scope.doUpdateTask = function(tid,task){
                                                             Utilities.setLocalValue('email',$scope.user.email);
                                                             Utilities.setLocalValue('password',$scope.user.password)//TODO encript password
                                                             Utilities.setLocalValue('storeCredentials',true)
-                                                            User.setUid(authData.uid).setProvider(authData.provider).setGravatar(authData.password.profileImageURL)
-                                                            $rootScope.effige = authData.password.profileImageURL
+                                                            console.log(authData.uid)
                                                           }
                                                           else
                                                               Utilities.setLocalValue('storeCredentials',false)
+                                                              User.setUid(authData.uid).setProvider(authData.provider).setGravatar(authData.password.profileImageURL)
+                                                              $rootScope.effige = authData.password.profileImageURL
                                                           console.log('carico la lista dei tasks')
                                                           var taskCback = function(data){
                                                             var filter = function(task){
