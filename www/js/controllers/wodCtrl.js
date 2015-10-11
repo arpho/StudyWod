@@ -80,7 +80,7 @@ angular.module('StudyWod.controllers')
                                                 console.log('wodctrl')
 
                                                     $scope.deleteTask = function(tid){
-                                                        Utilities.confirmPopup('cancellare '+$scope.activities[tid].activity+'?','Vuoi proprio cancellarlo?',function(){$scope.doDelete(tid)},function(){console.log('no non vuole')})
+                                                        Utilities.confirmPopup('cancellare '+Utilities.retrieveTask(tid,$scope.activities).activity+'?','Vuoi proprio farlo?',function(){$scope.doDelete(tid)},function(){console.log('no non vuole')})
                                                     }
                                                     $scope.actionSheet= function(tid){
                                                         $ionicActionSheet.show({
@@ -105,18 +105,20 @@ $scope.doUpdateTask = function(tid,task){
       console.log(task)
      $ionicLoading.show({template:"Updating Task..."})
       var cback = function(error){
-          console.log('update error')
+          if (error)
+            console.log('update error',error)
           $ionicLoading.hide()
           $scope.closeModal() //chiudo la finestra modale
       }
-      Activities.updateTask(angular.copy($scope.activities[tid].key),angular.copy(task),cback) /* angular aggiunge campi
+      Activities.updateTask($scope.task.key,angular.copy($scope.task),cback) /* angular aggiunge campi
        di servizio agli oggetti in ng-repeat che non vengono accettati da firebase, quindi li rimuovo con angular.copy*/
   }
 
 
   $scope.doDelete = function(tid){
+  task = Utilities.retrieveTask(tid,$scope.activities)
                                                           $ionicLoading.show({template:'Deleting task...'})
-                                                          Activities.deleteTask($scope.activities[tid].key,function(res){
+                                                          Activities.deleteTask(task.key,function(res){
                                                               $ionicLoading.hide()
                                                               if (res) Utilities.notify('spiacente, qualcosa è andata male')
                                                               else {
@@ -134,7 +136,7 @@ $scope.doUpdateTask = function(tid,task){
                                                       }
 
   $scope.updateTask = function(tid){
-     $scope.task = $scope.activities[tid]
+     $scope.task = Utilities.retrieveTask(tid,$scope.activities) //  recupero il task da modificare e lo metto nello scope perchè sia visibile al popup
      console.log("updating task")
      $scope.action = "Update" // imposto il testo del pulsante nella finestra modale
      //imposto il popup
@@ -164,7 +166,7 @@ $scope.doUpdateTask = function(tid,task){
   }
                                                     $scope.taskDone = function (id){
                                                         $ionicLoading.show({template:'Updating Task'})
-                                                        var task = $scope.activities[id];
+                                                        var task = Utilities.retrieveTask(id,$scope.activities);
                                                         task.nextTime =  Utilities.formatDate(Utilities.addDays(new Date(),Activities.getDays(task.rep)))
                                                         task.rep += 1
                                                         task.history.push(Utilities.formatDate(new Date()))
@@ -172,7 +174,7 @@ $scope.doUpdateTask = function(tid,task){
                                                                         $ionicLoading.hide()
                                                                         Utilities.notify("next time on "+ task.nextTime)
                                                                     }
-                                                        Activities.updateTask(id,task,callback)
+                                                        Activities.updateTask(task.key,task,callback)
                                                     }
 
 

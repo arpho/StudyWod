@@ -15,7 +15,7 @@
         <div ngshow="showNextTimeTask()"><p><b>prossima volta :</b>{{task.nextTime}}</p></div>
         <p> <b>ripetuto:</b>  {{task.rep}} volte</p>
         <p><b> nota</b> {{task.nota||'nessuna nota'}} <p>
-        <i class="icon ion-android-more-vertical icon-accessory" ng-click= "actionSheet({{task.key}})"></i>
+        <i class="icon ion-android-more-vertical icon-accessory" ng-click= "actionSheet(task.key)"></i>
           <!--  <ion-option-button class="button-energized" ng-click = updateTask(key)>
            Modifica
            </ion-option-button>

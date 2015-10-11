@@ -9,7 +9,8 @@ angular.module('StudyWod.controllers')
                                                 ,'$filter'
 												,'$state'
 												,'$ionicSideMenuDelegate'
-                                                ,function($scope,Utilities,Activities,$ionicLoading,$ionicModal,User,log,$state,$menuDelegate,$filter){
+												, '$controller'
+                                                ,function($scope,Utilities,Activities,$ionicLoading,$ionicModal,User,log,$state,$menuDelegate, $controller){
 
 
   $scope.openModal = function() {
@@ -54,6 +55,9 @@ var today = new Date()
 	console.log('user is logged ',User.isLogged())
 	if (User.isLogged()){
 	var taskCback = function(data){
+	    var filter = function(task){
+	    return task.nextTime == tomorrow
+	    }
      $scope.activities = data.val()// Activities.normalizeTasks( data)
      console.log(' acquisita la lista  dei task ')
      $ionicLoading.hide()
