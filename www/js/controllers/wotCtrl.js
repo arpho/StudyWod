@@ -6,12 +6,10 @@ angular.module('StudyWod.controllers')
                                                 ,'$ionicModal'
                                                 ,'User'
                                                 , '$log'
-                                                ,'$filter'
 												,'$state'
 												,'$ionicSideMenuDelegate'
-												, '$controller'
-                                                ,function($scope,Utilities,Activities,$ionicLoading,$ionicModal,User,log,$state,$menuDelegate, $controller){
-
+                                                ,function($scope,Utilities,Activities,$ionicLoading,$ionicModal,User,log,$state,$menuDelegate){
+console.log('started wot')
 
   $scope.openModal = function() {
     $scope.modal.show();
@@ -53,21 +51,22 @@ var today = new Date()
 		Activities.getTasks(Utilities.formatDate(tomorrow),cback)
 	}
 	console.log('user is logged ',User.isLogged())
+	var filter = function(task){
+  	    return task.nextTime == Utilities.formatDate(tomorrow)
+  	    }
 	if (User.isLogged()){
 	var taskCback = function(data){
-	    var filter = function(task){
-	    return task.nextTime == tomorrow
-	    }
-     $scope.activities = data.val()// Activities.normalizeTasks( data)
+
+     $scope.activities = Activities.normalizeTasks( data,filter)
      console.log(' acquisita la lista  dei task ')
      $ionicLoading.hide()
   }
-  $ionicLoading.show({template:'loading task...'})
-  Activities.getAllTasks(taskCback)
-    //$scope.activities = Activities.getTasksList()
+  //$ionicLoading.show({template:'loading task...'})
+  //Activities.getAllTasks(taskCback)
+  $scope.activities = Activities.getFilteredTasks(filter)
   }
 	else{
-	 //Utilities.setPreviousState('wot')
-	 //$state.go('signin')
+	console.log('wot user non logged')
+	$state.go('wod') // se l'utente nonè loggato reindirizzo su wod che si occuperà del login
 	}
 }])

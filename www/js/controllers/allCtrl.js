@@ -86,7 +86,9 @@ $scope.newTask = function(){
 													}
 
 
-
+var filter = function(task){
+  return true //recupera tutti i tasks
+  }
 
 	if (User.isLogged()){
   	var taskCback = function(data){
@@ -97,5 +99,9 @@ $scope.newTask = function(){
     $ionicLoading.show({template:'loading task...'})
     Activities.getAllTasks(taskCback)
       //$scope.activities = Activities.getTasksList()
+      $scope.activities = Activities.getFilteredTasks(filter)
     }
+  else{
+  $state.go('wod')
+  }
 }])

@@ -2,8 +2,30 @@ angular.module('StudyWod.services')
 .factory('Activities', [
 		'Utility', 'User', function (Utilities, User) {
 			var ref = Utilities.getAuth();
-			var activities = {};
+			var activities = {}
+			 activities.rawTasks = {};
+			 /* questa variabile conterrà l'oggetto data ritornato da firebase, per evitare di scaricare la lista ad ogni
+			  passaggio a wot e all finchè l'utente è autenticato
 
+			  @param oggetto data ritornato da firebase
+			  */
+
+activities.setRawTasks = function(tasks){
+  this.rawTasks = tasks
+  return this
+}
+/* ritorna la lista dei tasks filtrata e normalizzata
+
+@param  Function(task) funzione che ritorna i tasks  che rispettano certe condizioni
+@return [Task]
+*/
+activities.getFilteredTasks = function (filter){
+return this.normalizeTasks(this.rawTasks, filter)
+}
+/*ritorna l'oggetto data di firebase memorizzato in rawTasks
+*/
+activities.getRawTasks = function(){
+  return this.rawTasks}
 			/* aggiorna un task
 			@param  string uid dell'oggetto
 			@param Task : nuovo oggetto task

@@ -80,7 +80,8 @@ angular.module('StudyWod.controllers')
                                                 console.log('wodctrl')
 
                                                     $scope.deleteTask = function(tid){
-                                                        Utilities.confirmPopup('cancellare '+Utilities.retrieveTask(tid,$scope.activities).activity+'?','Vuoi proprio farlo?',function(){$scope.doDelete(tid)},function(){console.log('no non vuole')})
+                                                    //TODO memorizzare i taskattivi in rootScope oppure creare delete task in Activities che è meglio
+                                                        Utilities.confirmPopup('cancellare '+Utilities.retrieveTask(tid,Activities.getRawTasks().val()).activity+'?','Vuoi proprio farlo?',function(){$scope.doDelete(tid)},function(){console.log('no non vuole')})
                                                     }
                                                     $scope.actionSheet= function(tid){
                                                         $ionicActionSheet.show({
@@ -126,7 +127,12 @@ $scope.doUpdateTask = function(tid,task){
                                                                 //ricarico la lista dei task
                                                                 var cbackTasks = function(data){
                                                                                   //activities.setTasks(data) // setto i task in activities
+                                                                                  activities.setRawTasks(data)
                                                                                   $ionicLoading.hide();// chiudo la rotella del caricamento task
+                                                                                  var filter = function(task){
+                                                                                    return task.lastTime == $scope.day || task.nextTime == $scope.day
+                                                                                  }
+                                                                                  $scope.activities = activities.getFilteredTasks(filter)
                                                                                 }
                                                                 activities.getAllTasks(cbackTasks)
                                                                 $scope.activities = Activities.getTasksList()
@@ -253,12 +259,13 @@ $scope.doUpdateTask = function(tid,task){
 
                                                               return task.lastTime == $scope.day || task.nextTime == $scope.day
                                                             }
-                                                            $scope.activities =  Activities.normalizeTasks( data,filter)
+                                                            Activities.setRawTasks(data) // memorizzo l'oggetto ritornato da firebase per successivi riusi dagli altri stati
+                                                            $scope.activities =  Activities.getFilteredTasks(filter) //Activities.get( data,filter)
                                                             console.log(' acquisita la lista  dei task ')
                                                             $ionicLoading.hide() //nascondo il modal
                                                            }
                                                            $ionicLoading.show({template:'loading task...'})
-                                                           Activities.getAllTasks(taskCback)
+                                                           Activities.getAllTasks(taskCback) // carico i tasksdal back-end
                                                      }
                                                  }
                                                      //if(Utilities.counter('loginPopup')==0)
