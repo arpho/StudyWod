@@ -31,22 +31,11 @@ angular.module('StudyWod.controllers')
 	var today = new Date()
 	var tomorrow = Utilities.addDays(today,1)
 	$scope.subtitle = "All tasks  " //+ Utilities.formatDate(tomorrow,true);
+	$scope.activities = Activities.getFilteredTasks(filter)
+	Activities.setVisualizedTasks($scope.activities)
 
-$scope.activities ={}
-$scope.activities['a'] = {'activity':'ciao','nota':'test statico'}
 
 
-$scope.updateTask = function(tid){
-     $scope.task = $scope.activities[tid]
-     console.log("updating task")
-     $scope.filter2Use ='allFilter'
-     $scope.action = "Modifica" // imposto il testo del pulsante nella finestra modale
-     $scope.doAction = function(){
-         $scope.doUpdateTask(tid,$scope.task)
-         console.log('nota '+$scope.task.nota)
-     }
-     $scope.openModal();
-  }
 
 $scope.doCreateTask = function(task){
       $ionicLoading.show({template:'Creating new task...'})

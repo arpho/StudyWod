@@ -81,7 +81,7 @@ angular.module('StudyWod.controllers')
 
                                                     $scope.deleteTask = function(tid){
                                                     //TODO memorizzare i taskattivi in rootScope oppure creare delete task in Activities che è meglio
-                                                        Utilities.confirmPopup('cancellare '+Utilities.retrieveTask(tid,Activities.getRawTasks().val()).activity+'?','Vuoi proprio farlo?',function(){$scope.doDelete(tid)},function(){console.log('no non vuole')})
+                                                        Utilities.confirmPopup('cancellare '+Utilities.retrieveTask(tid,Activities.normalizeTasks(Activities.getRawTasks())).activity+'?','Vuoi proprio farlo?',function(){$scope.doDelete(tid)},function(){console.log('no non vuole')})
                                                     }
                                                     $scope.actionSheet= function(tid){
                                                         $ionicActionSheet.show({
@@ -94,7 +94,7 @@ angular.module('StudyWod.controllers')
                                                              cancelText: 'Annulla',
                                                              buttonClicked: function(index) {
                                                                  var action ={0:$scope.taskDone,1:$scope.updateTask,2:$scope.deleteTask}
-                                                                 action[index](tid)
+                                                                 action[index](tid,Activities.getVisualizedTasks())
                                                                return true;
                                                              }
                                                            });
@@ -141,8 +141,10 @@ $scope.doUpdateTask = function(tid,task){
 
                                                       }
 
-  $scope.updateTask = function(tid){
-     $scope.task = Utilities.retrieveTask(tid,$scope.activities) //  recupero il task da modificare e lo metto nello scope perchè sia visibile al popup
+  $scope.updateTask = function(tid,activities){/*refactored giuseppe 20151020 elimino il side effect dovuto
+   a $scope.activities che puo cambiare con i controller*/
+      activities = activities ||$scope.activities
+     $scope.task = Utilities.retrieveTask(tid,activities) //  recupero il task da modificare e lo metto nello scope perchè sia visibile al popup
      console.log("updating task")
      $scope.action = "Update" // imposto il testo del pulsante nella finestra modale
      //imposto il popup

@@ -14,6 +14,14 @@ activities.setRawTasks = function(tasks){
   this.rawTasks = tasks
   return this
 }
+
+activities.visualizedTasks = [] //memorizza i tasks visualizzati dallo stato attivo per essere riutilizzati da wodCtrl
+activities.setVisualizedTasks = function(tasks){
+  this.visualizedTasks = tasks
+}
+activities.getVisualizedTasks = function(){
+  return activities.visualizedTasks;
+}
 /* ritorna la lista dei tasks filtrata e normalizzata
 
 @param  Function(task) funzione che ritorna i tasks  che rispettano certe condizioni
@@ -134,10 +142,16 @@ return tasks
 			e aggiungo a tutti gli oggetti il campo chiave per non peredere l'identificativo di firebase
       			quindi ne faccio una copia
       			@parameter data da firebase
-      			@parameter funzione che valuta la visibilità del task
+      			@parameter funzione che valuta la visibilità del task di default li prende tutti
       			@return oggetto copia di data.val()*/
 activities.normalizeTasks = function(data,filter){
            		var tasks = []
+           		/*
+           		filtro di default passa tutti i tasks*/
+           		, defaultFilter= function (task){
+           		  return true
+           		}
+           		filter = filter || defaultFilter // se non è passato nessun filtro uso quello di default
            		for(var key in data.val()){
            		  var task = data.val()[key]
            		  task.key = key

@@ -27,14 +27,17 @@ console.log('started wot')
   $scope.$on('$destroy', function() {
     $scope.modal.remove();
   });
+  var today = new Date()
+  	,tomorrow = Utilities.addDays(today,1)
+  , filter = function(task){
+    	    return task.nextTime == Utilities.formatDate(tomorrow)
+    	    }
 	$scope.titolo = "Wot";
+	$scope.activities = Activities.getFilteredTasks(filter)
 
-var today = new Date()
-	var tomorrow = Utilities.addDays(today,1)
+
 	$scope.subtitle = "Work of Tomorrow  " + Utilities.formatDate(tomorrow,true);
 	$scope.day = Utilities.formatDate(tomorrow,true);
-        //definisco il filtro da usare nella lista dei task
-  $scope.filter2Use ='wotFilter'
 	var getTasks = function(){
 		$ionicLoading.show({template:'Loading Wot...'})
 		console.log('retrieving  tasks')
@@ -51,9 +54,7 @@ var today = new Date()
 		Activities.getTasks(Utilities.formatDate(tomorrow),cback)
 	}
 	console.log('user is logged ',User.isLogged())
-	var filter = function(task){
-  	    return task.nextTime == Utilities.formatDate(tomorrow)
-  	    }
+
 	if (User.isLogged()){
 	var taskCback = function(data){
 
@@ -64,6 +65,7 @@ var today = new Date()
   //$ionicLoading.show({template:'loading task...'})
   //Activities.getAllTasks(taskCback)
   $scope.activities = Activities.getFilteredTasks(filter)
+	Activities.setVisualizedTasks($scope.activities)
   }
 	else{
 	console.log('wot user non logged')

@@ -124,7 +124,10 @@ angular.module('StudyWod.services').factory('Utility',['$firebaseAuth'
         ,retrieveTask = function(key,tasks){
         var out;
         angular.forEach(tasks,function(task){
+
         if (task.key == key) out = task
+        console.log(key,task.key,key == task.key)
+
         })
         return out
         }
