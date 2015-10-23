@@ -8,14 +8,15 @@
 			  </h3>
 	<!-- <button class="button ion-chevron-right ion-plus-round" ng-click="newTask()"></button> -->
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="(key,task) in activities" type="item-text-wrap"  can-swipe="true">
-
-        <h2>task: {{task.activity}}</h2>
-        <p><b>ultima ripetizione il :</b>{{task.lastTime}}</p>
-        <div ngshow="showNextTimeTask()"><p><b>prossima volta :</b>{{task.nextTime}}</p></div>
+      <ion-item ng-class = "{'ion-checkmark-round':justDone(task)}" class=" item-remove-animate item-avatar item-icon-right"  ng-class="{strike:isDone(task)}"ng-repeat="(key,task) in activities" type="item-text-wrap"  can-swipe="true">
+        <!--strike-->
+        <h2 >task: {{task.activity}}</h2>
+        <p ><b>ultima ripetizione il :</b>{{task.lastTime}}</p>
+        <div ngshow="showNextTimeTask()" ><p><b>prossima volta :</b>{{task.nextTime}}</p></div>
         <p> <b>ripetuto:</b>  {{task.rep}} volte</p>
         <p><b> nota</b> {{task.nota||'nessuna nota'}} <p>
-        <p><b>Key:</b> {{task.key}}</p>
+        <p>{{justDone(task)}}</p>
+
         <i class="icon ion-android-more-vertical icon-accessory" ng-click= "actionSheet(task.key)"></i>
           <!--  <ion-option-button class="button-energized" ng-click = updateTask(key)>
            Modifica
@@ -23,6 +24,7 @@
         <ion-option-button class="button-balanced" >
           Completato
         </ion-option-button> -->
+        <!--/strike-->
       </ion-item>
     </ion-list>
   </ion-content>

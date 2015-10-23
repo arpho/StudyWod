@@ -141,7 +141,15 @@ $scope.doUpdateTask = function(tid,task){
                                                           })
 
                                                       }
-
+/*verifica che il task sia stato eseguito in giornata
+ @parameter task il task da controllare
+ @return true se task.lastTime == today*/
+ $scope.justDone = function(task){
+   var today = new Date
+   //formatto la data
+   today = Utilities.formatDate(today,true);
+   return task.lastTime == today
+ }
   $scope.updateTask = function(tid,activities){/*refactored giuseppe 20151020 elimino il side effect dovuto
    a $scope.activities che puo cambiare con i controller*/
       activities = activities ||$scope.activities
