@@ -81,7 +81,7 @@ angular.module('StudyWod.controllers')
 
                                                     $scope.deleteTask = function(tid){
                                                     //TODO memorizzare i taskattivi in rootScope oppure creare delete task in Activities che è meglio
-                                                        Utilities.confirmPopup('cancellare '+Utilities.retrieveTask(tid,Activities.normalizeTasks(Activities.getRawTasks())).activity+'?','Vuoi proprio farlo?',function(){$scope.doDelete(tid)},function(){console.log('no non vuole')})
+                                                        Utilities.confirmPopup('cancellare '+Utilities.retrieveTask(tid,Activities.getVisualizedTasks()).activity+'?','Vuoi proprio farlo?',function(){$scope.doDelete(tid)},function(){console.log('no non vuole')})
                                                     }
                                                     $scope.actionSheet= function(tid){
                                                         $ionicActionSheet.show({
@@ -117,8 +117,9 @@ $scope.doUpdateTask = function(tid,task){
 
 
   $scope.doDelete = function(tid){
-  task = Utilities.retrieveTask(tid,$scope.activities)
+  task = Utilities.retrieveTask(tid,Activities.getVisualizedTasks())
                                                           $ionicLoading.show({template:'Deleting task...'})
+                                                          var task =
                                                           Activities.deleteTask(task.key,function(res){
                                                               $ionicLoading.hide()
                                                               if (res) Utilities.notify('spiacente, qualcosa è andata male')
@@ -174,7 +175,7 @@ $scope.doUpdateTask = function(tid,task){
   }
                                                     $scope.taskDone = function (id){
                                                         $ionicLoading.show({template:'Updating Task'})
-                                                        var task = Utilities.retrieveTask(id,$scope.activities);
+                                                        var task = Utilities.retrieveTask(id,Activities.getVisualizedTasks());
                                                         task.nextTime =  Utilities.formatDate(Utilities.addDays(new Date(),Activities.getDays(task.rep)))
                                                         task.rep += 1
                                                         task.history.push(Utilities.formatDate(new Date()))
