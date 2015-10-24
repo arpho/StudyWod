@@ -272,6 +272,7 @@ $scope.doUpdateTask = function(tid,task){
                                                             }
                                                             Activities.setRawTasks(data) // memorizzo l'oggetto ritornato da firebase per successivi riusi dagli altri stati
                                                             $scope.activities =  Activities.getFilteredTasks(filter) //Activities.get( data,filter)
+                                                            Activities.setVisualizedTasks($scope.activities)
                                                             console.log(' acquisita la lista  dei task ')
                                                             $ionicLoading.hide() //nascondo il modal
                                                            }
